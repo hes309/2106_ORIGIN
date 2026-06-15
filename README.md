@@ -12,6 +12,7 @@ Copyright © 2026。保留所有权利。
 - 使用作品中的人物、世界观、情节或设定制作衍生内容。
 本授权不转让任何著作权。影视、动画、游戏、有声作品及其他改编权均由作者何帅保留。
 改编及商业授权联系：hes309@gmail.com
+
 Leave a Mark on This World, a Light to Guide Humanity’s Path Forward Into the Future
 Written June 15, 2026
 Copyright Statement for 2106: Origin
