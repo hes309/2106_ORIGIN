@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天体拓扑经济学 · Celestial Topological Economics v4.0</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    tags: 'ams',
+    macros: {
+      CV: '\\mathcal{CV}',
+      UEU: '\\mathrm{UEU}',
+      IV: '\\mathcal{IV}',
+      CR: '\\mathcal{CR}'
+    }
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] },
+  startup: { typeset: true }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════ DESIGN TOKENS ═══════════════════════ */
+:root {
+  --ink:        #0e0e12;
+  --ink-deep:   #07070b;
+  --paper:      #f5f0e8;
+  --paper-warm: #ede6d6;
+  --paper-mid:  #d8cebb;
+  --paper-dark: #c4b89a;
+  --rule:       rgba(100,80,40,0.18);
+  --rule-heavy: rgba(100,80,40,0.35);
+  --accent:     #8b2a0a;
+  --accent2:    #1a4a6b;
+  --accent3:    #2d6b3a;
+  --gold:       #b8860b;
+  --gold-lt:    #d4a836;
+  --sienna:     #7a3b1e;
+  --text-body:  #2a2318;
+  --text-mid:   #5a4e3a;
+  --text-faint: #9a8e78;
+  --formula-bg: #f0ead8;
+  --formula-br: rgba(100,80,40,0.25);
+  --note-bg:    #eae0c8;
+  --tag-red:    #8b2a0a;
+  --tag-blue:   #1a4a6b;
+  --tag-green:  #2d6b3a;
+}
+
+/* ═══════════════════════ RESET & BASE ═══════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 17px; scroll-behavior: smooth; }
+
+body {
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  color: var(--text-body);
+  font-family: 'EB Garamond', 'Noto Serif SC', Georgia, serif;
+  line-height: 1.85;
+  min-height: 100vh;
+}
+
+/* Subtle ruled-paper lines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(160,140,100,0.07) 27px,
+    rgba(160,140,100,0.07) 28px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════ LAYOUT ═══════════════════════ */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 2.5rem 6rem;
+}
+
+/* ═══════════════════════ COVER ═══════════════════════ */
+.cover {
+  text-align: center;
+  padding: 5rem 1rem 3.5rem;
+  border-bottom: 2px solid var(--rule-heavy);
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+.cover::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 1.8rem auto 0;
+}
+
+.cover-seal {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+}
+
+.cover h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+
+.cover h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.cover .subtitle-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  letter-spacing: 0.25em;
+  margin-bottom: 2rem;
+}
+
+.cover-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+  line-height: 2;
+}
+
+.cover-meta strong {
+  color: var(--text-mid);
+  font-weight: 500;
+}
+
+/* ═══════════════════════ TOC ═══════════════════════ */
+.toc {
+  background: var(--paper-warm);
+  border: 1px solid var(--rule-heavy);
+  padding: 2rem 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.toc h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem;
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc-c;
+}
+
+.toc li {
+  counter-increment: toc-c;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  padding: 0.2rem 0;
+}
+
+.toc li::before {
+  content: counter(toc-c, upper-roman);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  min-width: 1.8rem;
+}
+
+.toc a {
+  color: var(--accent2);
+  text-decoration: none;
+  flex: 1;
+}
+.toc a:hover { text-decoration: underline; }
+
+.toc .dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--paper-dark);
+  margin: 0 0.3rem;
+  position: relative;
+  top: -3px;
+}
+
+/* ═══════════════════════ SECTION ═══════════════════════ */
+.axiom-section {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.axiom-section:last-of-type { border-bottom: none; }
+
+.axiom-head {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0 1.5rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.axiom-roman {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--paper-dark);
+  line-height: 1;
+  text-align: right;
+  padding-top: 0.1rem;
+  user-select: none;
+}
+
+.axiom-title-block {}
+
+.axiom-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.axiom-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 0.15rem;
+}
+
+.axiom-title-en {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text-faint);
+}
+
+/* improvement badge */
+.badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+}
+.badge-new   { background: rgba(139,42,10,0.08); color: var(--accent);  border: 1px solid rgba(139,42,10,0.2); }
+.badge-ext   { background: rgba(26,74,107,0.08); color: var(--accent2); border: 1px solid rgba(26,74,107,0.2); }
+.badge-core  { background: rgba(184,134,11,0.08); color: var(--gold);   border: 1px solid rgba(184,134,11,0.2); }
+
+/* ═══════════════════════ PROSE ═══════════════════════ */
+.prose {
+  font-size: 0.97rem;
+  color: var(--text-body);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.prose em    { font-style: italic; color: var(--accent); }
+.prose strong { font-weight: 600; }
+
+/* ═══════════════════════ FORMULA CARD ═══════════════════════ */
+.formula-card {
+  background: var(--formula-bg);
+  border: 1px solid var(--formula-br);
+  border-left: 3px solid var(--gold);
+  padding: 1.8rem 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.formula-card + .formula-card { margin-top: 1rem; }
+
+.formula-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.formula-card-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.formula-display {
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+/* constraint / note boxes */
+.box {
+  border-radius: 1px;
+  padding: 0.9rem 1.2rem;
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.box-constraint {
+  background: rgba(139,42,10,0.05);
+  border-left: 2px solid rgba(139,42,10,0.3);
+  color: var(--sienna);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+}
+.box-note {
+  background: var(--note-bg);
+  border-left: 2px solid var(--paper-dark);
+  color: var(--text-mid);
+}
+.box-note strong { color: var(--accent2); font-weight: 600; }
+
+.box-insight {
+  background: rgba(26,74,107,0.05);
+  border: 1px solid rgba(26,74,107,0.15);
+  color: var(--accent2);
+  font-style: italic;
+}
+
+/* ═══════════════════════ PARAM TABLE ═══════════════════════ */
+.param-section-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin: 1.6rem 0 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.param-section-title::before, .param-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.param-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  margin-bottom: 0.5rem;
+}
+
+.param-table thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.4rem 0.8rem 0.4rem 0;
+  border-bottom: 1px solid var(--rule-heavy);
+  font-weight: 400;
+}
+
+.param-table tbody tr { border-bottom: 1px solid var(--rule); }
+.param-table tbody tr:last-child { border-bottom: none; }
+
+.param-table td {
+  padding: 0.55rem 0.8rem 0.55rem 0;
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+td.sym {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--accent);
+  white-space: nowrap;
+  width: 80px;
+}
+
+td.unit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent3);
+  white-space: nowrap;
+  width: 120px;
+}
+
+td.desc { color: var(--text-mid); }
+
+td.range {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+  width: 110px;
+}
+
+/* ═══════════════════════ DERIVATION BLOCK ═══════════════════════ */
+.derive-block {
+  border: 1px solid var(--rule);
+  padding: 1.4rem 1.8rem;
+  margin: 1.2rem 0;
+  background: rgba(255,255,255,0.4);
+  position: relative;
+}
+.derive-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.derive-step {
+  display: grid;
+  grid-template-columns: 1.2rem 1fr;
+  gap: 0 1rem;
+  align-items: start;
+  margin: 0.5rem 0;
+  font-size: 0.86rem;
+  color: var(--text-mid);
+}
+.derive-step-n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  padding-top: 0.15rem;
+}
+
+/* ═══════════════════════ SUMMARY / MASTER ═══════════════════════ */
+.master-section {
+  background: var(--paper-warm);
+  border: 2px solid var(--rule-heavy);
+  padding: 2.5rem;
+  margin: 3rem 0;
+}
+
+.master-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.04em;
+}
+
+.master-subtitle {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text-faint);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.master-rule {
+  border: none;
+  border-top: 1px solid var(--rule-heavy);
+  margin: 1.5rem 0;
+}
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.ref-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 1rem 1.2rem;
+}
+
+.ref-card-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.ref-card-title {
+  font-size: 0.88rem;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+.ref-card-eq {
+  font-size: 0.72rem;
+  color: var(--accent2);
+  line-height: 1.65;
+  margin-bottom: 0.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.ref-card-eq mjx-container {
+  margin: 0.15rem 0 !important;
+}
+.ref-card-note {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════ COUPLING DIAGRAM ═══════════════════════ */
+.coupling-wrap {
+  text-align: center;
+  margin: 2rem 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-mid);
+}
+
+.coupling-node {
+  display: inline-block;
+  border: 1px solid var(--rule-heavy);
+  background: var(--formula-bg);
+  padding: 0.5rem 1rem;
+  margin: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--ink);
+}
+
+/* ═══════════════════════ FOOTER ═══════════════════════ */
+footer {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-top: 2px solid var(--rule-heavy);
+  margin-top: 4rem;
+}
+
+.footer-ornament {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--paper-dark);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
+}
+
+.footer-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  line-height: 2;
+}
+
+.footer-quote {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-mid);
+  margin: 1.2rem auto;
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════ ANIMATIONS ═══════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.axiom-section, .master-section {
+  animation: fadeUp 0.55s ease both;
+}
+.axiom-section:nth-child(1) { animation-delay: 0.05s; }
+.axiom-section:nth-child(2) { animation-delay: 0.10s; }
+.axiom-section:nth-child(3) { animation-delay: 0.15s; }
+.axiom-section:nth-child(4) { animation-delay: 0.20s; }
+.axiom-section:nth-child(5) { animation-delay: 0.25s; }
+.axiom-section:nth-child(6) { animation-delay: 0.30s; }
+.axiom-section:nth-child(7) { animation-delay: 0.35s; }
+.axiom-section:nth-child(8) { animation-delay: 0.40s; }
+.axiom-section:nth-child(9) { animation-delay: 0.45s; }
+
+/* ═══════════════════════ PRINT ═══════════════════════ */
+@media print {
+  body { background: white; }
+  body::before { display: none; }
+  nav, .toc a { color: black; }
+}
+
+/* ═══════════════════════ MOBILE ═══════════════════════ */
+@media (max-width: 600px) {
+  .page-wrap { padding: 0 1.2rem 4rem; }
+  .axiom-head { grid-template-columns: 2.5rem 1fr; }
+  .formula-card { padding: 1.2rem 1rem; }
+  .param-table td.range { display: none; }
+  .master-section { padding: 1.5rem; }
+  .ref-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ══════════ COVER ══════════ -->
+<header class="cover">
+  <div class="cover-seal">Revised Theoretical Framework · Version 4.0 · 2148 A.D.</div>
+  <h1>Celestial<br><em>Topological Economics</em></h1>
+  <div class="subtitle-zh">天 体 拓 扑 经 济 学</div>
+  <div class="cover-meta">
+    <strong>火星大学理论经济研究院</strong> · Mars University Institute of Theoretical Economics<br>
+    <strong>木卫三自由科学院数学部</strong> · Ganymede Free Academy, Dept. of Mathematics<br>
+    <strong>猎户座贸易联盟标准委员会</strong> · Orion Trade Alliance Standards Committee<br><br>
+    联合修订 · 第四版 · 公元 2148 年
+  </div>
+</header>
+
+<!-- ══════════ TOC ══════════ -->
+<nav class="toc">
+  <h2>目录 · Contents</h2>
+  <ol>
+    <li><a href="#axiom1">文明价值函数</a><span class="dots"></span>公理 I</li>
+    <li><a href="#axiom2">宇宙标准价值单位 UEU</a><span class="dots"></span>公理 II</li>
+    <li><a href="#axiom3">因果折现定理</a><span class="dots"></span>公理 III</li>
+    <li><a href="#axiom4">星际运输壁垒</a><span class="dots"></span>公理 IV</li>
+    <li><a href="#axiom5">信息超越物质定理</a><span class="dots"></span>公理 V</li>
+    <li><a href="#axiom6">文明信用定理</a><span class="dots"></span>公理 VI</li>
+    <li><a href="#axiom7">熵增利率定理</a><span class="dots"></span>公理 VII</li>
+    <li><a href="#axiom8">拓扑相变阈值</a><span class="dots"></span>公理 VIII <span class="badge badge-new">新增</span></li>
+    <li><a href="#axiom9">天体拓扑基本方程</a><span class="dots"></span>公理 IX</li>
+    <li><a href="#master">公理体系总览</a><span class="dots"></span>附录</li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM I — CIVILIZATION VALUE FUNCTION
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom1">
+  <div class="axiom-head">
+    <div class="axiom-roman">I</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom I · Wealth Conservation Theorem</div>
+      <div class="axiom-title">文明价值函数 <span class="badge badge-ext">深化版</span></div>
+      <div class="axiom-title-en">Civilization Value Function</div>
+    </div>
+  </div>
+
+  <p class="prose">财富并非货币，而是文明对低熵资源的<em>控制能力</em>。四个维度构成一个相互耦合的四元组：可支配自由能 $E_f$、有效知识资本 $K$、因果控制范围 $C$、制度协同效率 $Q$。本版本相较原式引入两项关键改进：其一，通过除以基准参照量实现<em>量纲归一化</em>；其二，通过约束 $\sum \text{弹性系数} = 1$ 保证规模报酬中性，使 $\mathcal{CV}$ 成为跨文明可比的无量纲指数。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">核心方程</div>
+    <div class="formula-display">
+      $$\mathcal{CV} = k(\mathbf{r},\, t) \cdot \left(\frac{E_f}{E_0}\right)^{\!\alpha} \cdot \left(\frac{K}{K_0}\right)^{\!\beta} \cdot \left(\frac{C}{C_0}\right)^{\!\gamma} \cdot \left(\frac{Q}{Q_0}\right)^{\!\delta}$$
+    </div>
+    <div class="box box-constraint">
+      归一化约束：$\alpha + \beta + \gamma + \delta = 1$，$\;\alpha,\beta,\gamma,\delta > 0$
+    </div>
+    <div class="box box-constraint" style="margin-top:0.6rem;">
+      互补性约束：$\dfrac{\partial^2 \mathcal{CV}}{\partial E_f \,\partial K} > 0$（能源与知识互补，低值时边际报酬递增）
+    </div>
+    <div class="box box-note" style="margin-top:0.8rem;">
+      <strong>新增：动态弹性</strong> — 弹性系数并非常数，而是文明等级 $\Sigma$ 的函数：$\alpha(\Sigma),\beta(\Sigma)$ 随 Kardashev 指数 $\Sigma$ 单调变化。初级文明（$\Sigma &lt; 1$）中 $\alpha$ 主导；高级文明（$\Sigma > 2$）中 $\beta, \gamma$ 主导。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>物理含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\mathcal{CV}$</td><td class="unit">无量纲</td><td class="desc">文明价值指数，以基准文明为参照的相对量</td><td class="range">$(0,+\infty)$</td></tr>
+      <tr><td class="sym">$k(\mathbf{r},t)$</td><td class="unit">无量纲</td><td class="desc">时空修正系数，随星系位置与历史时间变化，反映恒星密度、暗物质分布等环境因素</td><td class="range">$[0.1,\,10]$</td></tr>
+      <tr><td class="sym">$E_f$</td><td class="unit">J（焦耳）</td><td class="desc">可支配自由能（㶲），热力学上可做有用功的能量上界</td><td class="range">—</td></tr>
+      <tr><td class="sym">$K$</td><td class="unit">bit·效率</td><td class="desc">有效知识资本 = 信息量 × 应用转化率</td><td class="range">—</td></tr>
+      <tr><td class="sym">$C$</td><td class="unit">$\text{ly}^3$ 或 s</td><td class="desc">因果控制范围，文明能施加实质影响的时空体积</td><td class="range">—</td></tr>
+      <tr><td class="sym">$Q$</td><td class="unit">无量纲</td><td class="desc">制度协同效率，衡量内部治理与协调能力</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$E_0,K_0,C_0,Q_0$</td><td class="unit">各自单位</td><td class="desc">基准文明参照值（约定以 21 世纪地球文明为 $\mathcal{CV}_0 = 1$）</td><td class="range">固定常数</td></tr>
+      <tr><td class="sym">$\alpha,\beta,\gamma,\delta$</td><td class="unit">无量纲</td><td class="desc">各维度产出弹性，可由跨文明面板数据经济计量回归</td><td class="range">$(0,1)$</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM II — UEU
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom2">
+  <div class="axiom-head">
+    <div class="axiom-roman">II</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom II · Standard Value Measure</div>
+      <div class="axiom-title">宇宙标准价值单位 UEU</div>
+      <div class="axiom-title-en">Universal Exergy Unit</div>
+    </div>
+  </div>
+
+  <p class="prose">2140 年，银河贸易联盟正式废除黄金结算，采用<em>通用㶲单位（UEU）</em>。㶲而非能量被选为基础单位，因为㶲度量的是热力学系统相对参考环境所能做的最大有用功——这是物理可验证的客观量，不依赖任何共识机构。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">基本单位定义</div>
+    <div class="formula-display">
+      $$1\;\mathrm{UEU} = 10^{9}\;\mathrm{J} \quad \text{（标准参考环境下可交割㶲）}$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">㶲的热力学定义（封闭系统）</div>
+    <div class="formula-display">
+      $$\Xi = (U - U_0) + P_0(V - V_0) - T_0(S - S_0)$$
+    </div>
+    <div class="box box-note">
+      <strong>跨星系修正：</strong>不同恒星系的参考态 $(T_0, P_0)$ 各异，跨系统交割须附带<em>环境修正证书（ECC）</em>，换算公式为 $1\;\mathrm{UEU}_A = \Phi_{AB} \cdot 1\;\mathrm{UEU}_B$，$\Phi_{AB}$ 由两系统参考态差异决定。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>物理含义</th><th>典型值</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\Xi$</td><td class="unit">J</td><td class="desc">系统总㶲</td><td class="range">—</td></tr>
+      <tr><td class="sym">$U, U_0$</td><td class="unit">J</td><td class="desc">系统内能与参考环境内能</td><td class="range">—</td></tr>
+      <tr><td class="sym">$P_0$</td><td class="unit">Pa</td><td class="desc">参考环境压力</td><td class="range">$10^5$ Pa（地球）</td></tr>
+      <tr><td class="sym">$T_0$</td><td class="unit">K</td><td class="desc">参考环境温度</td><td class="range">298 K（地球）</td></tr>
+      <tr><td class="sym">$V, V_0$</td><td class="unit">m³</td><td class="desc">系统与参考环境体积</td><td class="range">—</td></tr>
+      <tr><td class="sym">$S, S_0$</td><td class="unit">J/K</td><td class="desc">系统与参考环境熵</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\Phi_{AB}$</td><td class="unit">无量纲</td><td class="desc">跨系统㶲换算系数（ECC 核心参数）</td><td class="range">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM III — CAUSAL DISCOUNT
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom3">
+  <div class="axiom-head">
+    <div class="axiom-roman">III</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom III · Lightspeed Constraint</div>
+      <div class="axiom-title">因果折现定理 <span class="badge badge-ext">相对论修正</span></div>
+      <div class="axiom-title-en">Causal Discount Law</div>
+    </div>
+  </div>
+
+  <p class="prose">任何经济活动受光速约束。合约的最小确认时间为<em>往返延迟</em> $2\tau$（单向通知不够，需要双向确认），而非原版仅考虑单向延迟 $\tau$。此外，若交易一方处于高速飞船上，时间膨胀效应使有效延迟须乘以洛伦兹因子。折现率 $\lambda$ 不再是常数，而是制度质量与交易类型的联合函数。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">有效通信延迟（往返 + 相对论）</div>
+    <div class="formula-display">
+      $$\tau_{\text{eff}} = \frac{2L}{c\,\sqrt{1 - v^2/c^2}}$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">因果折现价值</div>
+    <div class="formula-display">
+      $$V_t = V_0 \cdot \exp\!\Bigl(-\lambda(Q,\,\omega)\cdot\tau_{\text{eff}}\Bigr)$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">折现率（制度质量与交易类型联合调制）</div>
+    <div class="formula-display">
+      $$\lambda(Q,\,\omega) = \frac{\lambda_0}{Q}\cdot \omega_{\text{type}}, \qquad \omega_{\text{type}} = \begin{cases} 1 &amp; \text{即时商品} \\ 2\text{–}5 &amp; \text{期货合约} \\ 0.1 &amp; \text{知识授权} \end{cases}$$
+    </div>
+    <div class="box box-insight">
+      知识授权折现权重仅为 0.1，反映信息在传输过程中几乎不因时延而贬值——思想的价值超越光速限制的直接约束。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$V_t$</td><td class="unit">UEU</td><td class="desc">延迟后的折现价值</td><td class="range">$[0,\,V_0]$</td></tr>
+      <tr><td class="sym">$V_0$</td><td class="unit">UEU</td><td class="desc">交易发起时的名义价值</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\tau_\text{eff}$</td><td class="unit">s</td><td class="desc">往返有效延迟，含洛伦兹因子修正</td><td class="range">—</td></tr>
+      <tr><td class="sym">$L$</td><td class="unit">光年 ly</td><td class="desc">交易双方空间距离</td><td class="range">$0.001\text{–}1000$ ly</td></tr>
+      <tr><td class="sym">$v$</td><td class="unit">m/s</td><td class="desc">交易方相对观测参考系的速度</td><td class="range">$[0,\,c)$</td></tr>
+      <tr><td class="sym">$c$</td><td class="unit">m/s</td><td class="desc">真空光速 $\approx 2.998\times10^8$ m/s</td><td class="range">物理常数</td></tr>
+      <tr><td class="sym">$\lambda_0$</td><td class="unit">1/s</td><td class="desc">基准折现率，由银河贸易联盟协议定义</td><td class="range">—</td></tr>
+      <tr><td class="sym">$Q$</td><td class="unit">无量纲</td><td class="desc">制度质量（引自公理 I），高效文明可降低折现率</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\omega_\text{type}$</td><td class="unit">无量纲</td><td class="desc">交易类型权重</td><td class="range">$[0.1,\,5]$</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM IV — TRANSPORT BARRIER
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom4">
+  <div class="axiom-head">
+    <div class="axiom-roman">IV</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom IV · Tsiolkovsky-Extended Cost</div>
+      <div class="axiom-title">星际运输壁垒定理 <span class="badge badge-ext">机会成本耦合</span></div>
+      <div class="axiom-title-en">Interstellar Transport Barrier</div>
+    </div>
+  </div>
+
+  <p class="prose">星际时代最昂贵的不是制造，而是<em>移动</em>。总运输成本由三个相互独立的项叠加：基于齐奥尔科夫斯基方程的推进剂成本、与货物质量成比例的风险成本、以及货物在运输期间因利率 $r$ 产生的<em>机会成本</em>。第三项将公理 III 的时延与公理 VII 的利率深度耦合。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">推进剂质量（齐奥尔科夫斯基公式）</div>
+    <div class="formula-display">
+      $$m_\text{fuel} = m_\text{cargo}\left(e^{\Delta v/v_e} - 1\right)$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">总运输成本（三项叠加）</div>
+    <div class="formula-display">
+      $$\mathrm{TC} = \underbrace{P_f \cdot m_\text{fuel}}_{\text{推进成本}} + \underbrace{\rho_R \cdot m_\text{cargo}}_{\text{风险成本}} + \underbrace{V_\text{cargo}\!\left(1 - e^{-r\tau}\right)}_{\text{机会成本}}$$
+    </div>
+    <div class="box box-note">
+      <strong>机会成本项的深层含义：</strong>当 $r\tau \ll 1$ 时，$(1-e^{-r\tau}) \approx r\tau$，退化为线性；当 $r\tau \gg 1$（极远距离或极高利率），机会成本趋近于货物全值 $V_\text{cargo}$——即运输成本可能超过货物本身价值，解释了为何星际贸易以信息而非实物为主。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\mathrm{TC}$</td><td class="unit">UEU</td><td class="desc">总运输成本</td><td class="range">—</td></tr>
+      <tr><td class="sym">$m_\text{cargo}$</td><td class="unit">kg</td><td class="desc">货物净质量</td><td class="range">—</td></tr>
+      <tr><td class="sym">$m_\text{fuel}$</td><td class="unit">kg</td><td class="desc">消耗推进剂质量</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\Delta v$</td><td class="unit">m/s</td><td class="desc">任务总速度增量（含加速、减速、轨道修正）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$v_e$</td><td class="unit">m/s</td><td class="desc">有效排气速度（推进器性能参数）</td><td class="range">$10^4\text{–}10^8$ m/s</td></tr>
+      <tr><td class="sym">$P_f$</td><td class="unit">UEU/kg</td><td class="desc">推进剂单价（取决于燃料类型与当地市场）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\rho_R$</td><td class="unit">UEU/kg</td><td class="desc">风险成本系数（含航程保险费率）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$V_\text{cargo}$</td><td class="unit">UEU</td><td class="desc">货物名义市场价值</td><td class="range">—</td></tr>
+      <tr><td class="sym">$r$</td><td class="unit">1/s</td><td class="desc">熵增利率（引自公理 VII）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\tau$</td><td class="unit">s</td><td class="desc">运输总时延</td><td class="range">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM V — INFORMATION SUPREMACY
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom5">
+  <div class="axiom-head">
+    <div class="axiom-roman">V</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom V · Knowledge Economy</div>
+      <div class="axiom-title">信息超越物质定理 <span class="badge badge-ext">扩散动力学</span></div>
+      <div class="axiom-title-en">Information Supremacy Theorem</div>
+    </div>
+  </div>
+
+  <p class="prose">随文明等级提升，知识价值最终超越物质价值。改进版引入两个新机制：<em>对数独占函数</em> $\Omega(n)$ 捕捉信息扩散导致的非线性价值衰减（一旦泄露给第二方，价值骤降，此后缓慢趋零）；<em>技术领先度贬值</em> $T(t)$ 反映知识会随时间扩散而失去竞争优势。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">信息价值函数</div>
+    <div class="formula-display">
+      $$\mathcal{IV} = \frac{H_\text{eff}}{H_\text{ref}} \cdot A \cdot T(t) \cdot e^{-\lambda_I\tau} \cdot \Omega(n)$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">技术领先度衰减</div>
+    <div class="formula-display">
+      $$T(t) = T_0\,e^{-\mu t}$$
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">独占系数（对数扩散模型）</div>
+    <div class="formula-display">
+      $$\Omega(n) = \frac{1}{1 + \kappa\,\ln n}$$
+    </div>
+    <div class="box box-constraint">
+      边界行为：$\Omega(1) = 1$（完全垄断）；$\;\Omega(n) \to 0$，当 $n \to \infty$（公共知识）
+    </div>
+    <div class="box box-note" style="margin-top:0.6rem;">
+      <strong>新增：二阶效应。</strong>若文明能主动<em>控制信息扩散</em>（通过加密、物理隔离等手段），则 $n$ 的增长率 $\dot{n}$ 本身可被压制，相当于延长了高独占期。这给出"信息武器化"的经济学基础。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\mathcal{IV}$</td><td class="unit">UEU</td><td class="desc">信息的经济价值</td><td class="range">—</td></tr>
+      <tr><td class="sym">$H_\text{eff}$</td><td class="unit">bit</td><td class="desc">有效信息量 = 香农熵 × 可应用比率</td><td class="range">—</td></tr>
+      <tr><td class="sym">$H_\text{ref}$</td><td class="unit">bit</td><td class="desc">参照信息量（归一化基准，消除量纲）</td><td class="range">固定常数</td></tr>
+      <tr><td class="sym">$A$</td><td class="unit">UEU/bit</td><td class="desc">应用转化系数，单位信息的经济变现能力</td><td class="range">—</td></tr>
+      <tr><td class="sym">$T(t)$</td><td class="unit">无量纲</td><td class="desc">技术领先度，随时间 $t$ 衰减</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\mu$</td><td class="unit">1/年</td><td class="desc">知识贬值速率（前沿技术 $\mu$ 更大）</td><td class="range">$0.05\text{–}2$/年</td></tr>
+      <tr><td class="sym">$\lambda_I$</td><td class="unit">1/s</td><td class="desc">信息因果折现率（远小于商品折现率）</td><td class="range">$\ll\lambda_0$</td></tr>
+      <tr><td class="sym">$\Omega(n)$</td><td class="unit">无量纲</td><td class="desc">独占系数，随知晓方数量增加而对数下降</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\kappa$</td><td class="unit">无量纲</td><td class="desc">独占敏感系数，由知识类别决定</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$n$</td><td class="unit">个（整数）</td><td class="desc">拥有该信息的文明/机构数量</td><td class="range">$\geq 1$</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM VI — CIVILIZATION CREDIT
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom6">
+  <div class="axiom-head">
+    <div class="axiom-roman">VI</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom VI · Institutional Trust</div>
+      <div class="axiom-title">文明信用定理</div>
+      <div class="axiom-title-en">Civilization Credit Theorem</div>
+    </div>
+  </div>
+
+  <p class="prose">未来信用不属于个人，而属于<em>文明整体</em>。文明信用评级 $\mathcal{CR}$ 以乘积结构定义，任一维度趋零则整体评级归零——单次重大违约可永久摧毁跨星系信用体系。本版本将原始的函数形式 $f(Q,S,K,P)$ 显式化为可量化的幂律乘积，并为历史违约概率引入<em>时间折旧</em>项，允许文明通过长期守信逐步修复评级。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">文明信用评级函数</div>
+    <div class="formula-display">
+      $$\mathcal{CR} = Q^{\,a} \cdot \left(\frac{1}{1 + S_\text{rate}}\right)^{\!b} \cdot (1 + g_K)^{\,c} \cdot \bigl(1 - P_\text{def}\,e^{-\phi\,\Delta t}\bigr)^{\,d}$$
+    </div>
+    <div class="box box-note">
+      <strong>违约记忆衰减项：</strong>$(1 - P_\text{def}\,e^{-\phi\,\Delta t})^d$ 中，$\Delta t$ 为距最近违约事件的时间，$\phi$ 为"信誉修复速率"。当 $\Delta t \to \infty$ 时，违约影响归零；当 $\Delta t = 0$ 时，违约影响最大。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\mathcal{CR}$</td><td class="unit">无量纲</td><td class="desc">文明信用评级指数</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$Q$</td><td class="unit">无量纲</td><td class="desc">制度稳定性：法律体系、治理结构完备度</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$S_\text{rate}$</td><td class="unit">无量纲/年</td><td class="desc">归一化社会熵增率（越低越好）</td><td class="range">$[0,+\infty)$</td></tr>
+      <tr><td class="sym">$g_K$</td><td class="unit">1/年</td><td class="desc">知识增长率，衡量文明学习与创新能力</td><td class="range">$(0,1)$</td></tr>
+      <tr><td class="sym">$P_\text{def}$</td><td class="unit">无量纲</td><td class="desc">最近违约事件的严重性权重</td><td class="range">$[0,1]$</td></tr>
+      <tr><td class="sym">$\phi$</td><td class="unit">1/年</td><td class="desc">信誉修复速率（由联盟协议规定）</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\Delta t$</td><td class="unit">年</td><td class="desc">距最近违约事件的时间间隔</td><td class="range">$\geq 0$</td></tr>
+      <tr><td class="sym">$a,b,c,d$</td><td class="unit">无量纲</td><td class="desc">各维度权重，由星际评级机构协议制定</td><td class="range">$>0$</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM VII — ENTROPY INTEREST RATE
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom7">
+  <div class="axiom-head">
+    <div class="axiom-roman">VII</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom VII · Complexity Premium</div>
+      <div class="axiom-title">熵增利率定理 <span class="badge badge-ext">交叉项修正</span></div>
+      <div class="axiom-title-en">Entropy-Augmented Interest Rate</div>
+    </div>
+  </div>
+
+  <p class="prose">利率的物理本质是对抗<em>混乱成本</em>的定价。原式存在量纲错误（热力学熵增率 J/(K·s) 与利率 1/年 不可直接相加），本版本通过归一化修正，并引入风险与延迟的<em>乘积交叉项</em>，反映"延迟越长则同等风险实际成本越高"的星际金融现实。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">熵增利率（修正版，量纲自洽）</div>
+    <div class="formula-display">
+      $$r = r_0 + \eta\cdot\frac{\dot{S}/\dot{S}_0}{Q} + \rho\cdot\mathrm{Risk}\cdot(1 + \mu\,\tau)$$
+    </div>
+    <div class="box box-constraint">
+      量纲验证：$\dot{S}/\dot{S}_0$（无量纲）→ 整式与 $r_0$ 量纲一致（1/年 或 1/s）
+    </div>
+    <div class="box box-note" style="margin-top:0.6rem;">
+      <strong>交叉项 $(1+\mu\tau)$：</strong>当延迟 $\tau=0$（太阳系内交易）退化为 $\rho\cdot\mathrm{Risk}$（标准风险溢价）；当 $\tau$ 很大时，相同风险指数对应成倍利率溢价，解释了为何星际债券利率远高于太阳系内债券。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$r$</td><td class="unit">1/年</td><td class="desc">实际利率（年化）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$r_0$</td><td class="unit">1/年</td><td class="desc">基准利率，无风险无延迟下的纯时间偏好率</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\dot{S}$</td><td class="unit">J/(K·s)</td><td class="desc">文明当前社会熵增率</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\dot{S}_0$</td><td class="unit">J/(K·s)</td><td class="desc">参考文明熵增率（归一化基准）</td><td class="range">固定常数</td></tr>
+      <tr><td class="sym">$Q$</td><td class="unit">无量纲</td><td class="desc">制度质量（引自公理 I），高效文明可对冲熵增成本</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\eta$</td><td class="unit">无量纲</td><td class="desc">熵增对利率的传导弹性</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\mathrm{Risk}$</td><td class="unit">无量纲</td><td class="desc">综合风险指数（政治 + 自然 + 技术风险加权）</td><td class="range">$[0,1]$</td></tr>
+      <tr><td class="sym">$\rho$</td><td class="unit">1/年</td><td class="desc">风险溢价系数</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\mu$</td><td class="unit">1/s</td><td class="desc">延迟风险放大系数</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\tau$</td><td class="unit">s</td><td class="desc">有效通信延迟（引自公理 III）</td><td class="range">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM VIII — TOPOLOGICAL PHASE TRANSITION  [NEW]
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom8">
+  <div class="axiom-head">
+    <div class="axiom-roman">VIII</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom VIII · New Contribution</div>
+      <div class="axiom-title">拓扑相变阈值 <span class="badge badge-new">新增公理</span></div>
+      <div class="axiom-title-en">Topological Phase Transition Threshold</div>
+    </div>
+  </div>
+
+  <p class="prose">当因果控制范围 $C$ 超过某一临界值 $C^*$ 时，文明的经济结构将发生<em>拓扑相变</em>：从局部化网络（中心辐射型）跃迁为分布式网络（点对点型），对应的制度最优形式也发生根本变化。这是天体拓扑经济学区别于传统经济学的核心命题——经济体的<em>拓扑结构</em>本身是内生变量。</p>
+
+  <div class="formula-card">
+    <div class="formula-card-label">临界因果控制范围</div>
+    <div class="formula-display">
+      $$C^* = \frac{c \cdot Q_\text{min}}{\lambda_0 \cdot \ln\!\left(\frac{V_0}{V_\text{min}}\right)}$$
+    </div>
+    <div class="box box-note">
+      <strong>物理意义：</strong>当 $C > C^*$ 时，中央协调机构无法在因果折现使价值归零之前完成全网信息同步，分布式自治成为唯一可行的经济形式。
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">相变前后制度效率比较</div>
+    <div class="formula-display">
+      $$\frac{Q_\text{分布式}}{Q_\text{中央式}} = \left(\frac{C}{C^*}\right)^{\!\varphi}, \quad \varphi > 0 \quad \text{当 } C > C^*$$
+    </div>
+    <div class="box box-insight">
+      相变之后，强行维持中央式治理的文明将因 $Q$ 下降而使 $\mathcal{CV}$ 显著低于采用分布式治理的同等文明。这为猎户座臂各殖民地在 2130 年代纷纷宣告自治提供了经济学解释。
+    </div>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-card-label">拓扑复杂度指标</div>
+    <div class="formula-display">
+      $$\Theta = \frac{\text{有效连接数}}{\text{节点数}} \cdot \frac{1}{1 + \bar{\tau}/\tau_\text{ref}}$$
+    </div>
+    <div class="box box-note">
+      <strong>含义：</strong>$\Theta$ 衡量经济网络的"有效密度"，分子为节点间的连接丰富度，分母中 $\bar{\tau}$ 为网络平均延迟，延迟越大则有效拓扑密度越低。相变阈值等价于 $\Theta &lt; \Theta_c$。
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$C^*$</td><td class="unit">ly³ 或 s</td><td class="desc">拓扑相变临界因果范围</td><td class="range">—</td></tr>
+      <tr><td class="sym">$Q_\text{min}$</td><td class="unit">无量纲</td><td class="desc">维持经济体运转所需最低制度质量</td><td class="range">$(0,1)$</td></tr>
+      <tr><td class="sym">$V_\text{min}$</td><td class="unit">UEU</td><td class="desc">有经济意义的最小交易规模（噪声下界）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\varphi$</td><td class="unit">无量纲</td><td class="desc">相变后的制度效率规模指数</td><td class="range">$>0$</td></tr>
+      <tr><td class="sym">$\Theta$</td><td class="unit">无量纲</td><td class="desc">网络拓扑复杂度指标</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\Theta_c$</td><td class="unit">无量纲</td><td class="desc">拓扑相变临界值</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\bar{\tau}$</td><td class="unit">s</td><td class="desc">经济网络节点间平均通信延迟</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\tau_\text{ref}$</td><td class="unit">s</td><td class="desc">参考延迟（太阳系内光秒尺度）</td><td class="range">$\approx 500$ s</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     AXIOM IX — FUNDAMENTAL EQUATION
+══════════════════════════════════════════════ -->
+<section class="axiom-section" id="axiom9">
+  <div class="axiom-head">
+    <div class="axiom-roman">IX</div>
+    <div class="axiom-title-block">
+      <div class="axiom-label">Axiom IX · Grand Synthesis</div>
+      <div class="axiom-title">天体拓扑经济学基本方程 <span class="badge badge-core">终极方程</span></div>
+      <div class="axiom-title-en">Fundamental Equation of Celestial Topological Economics</div>
+    </div>
+  </div>
+
+  <p class="prose">前八条公理的终极综合。文明的真实潜力由三项基本能力的幂律乘积决定：<em>控制自由能的能力</em>、<em>创造与应用知识的能力</em>、<em>扩张因果边界的能力</em>。本版本相比原始公理 VIII 新增了<em>拓扑修正项</em> $\mathcal{T}(\Theta)$，使基本方程能感知经济网络的结构状态。</p>
+
+  <div class="formula-card" style="border-left-color: var(--accent);">
+    <div class="formula-card-label" style="color: var(--accent);">★ 基本方程（含拓扑修正）</div>
+    <div class="formula-display">
+      $$\mathcal{CV}_\infty = \left(\frac{E_f}{E_0}\right)^{\!\alpha} \cdot \left(\frac{K}{K_0}\right)^{\!\beta} \cdot \left(\frac{C}{C_0}\right)^{\!\gamma} \cdot \mathcal{T}(\Theta)$$
+    </div>
+    <div class="formula-display" style="margin-top:1rem;">
+      $$\mathcal{T}(\Theta) = \begin{cases} 1 &amp; \Theta \geq \Theta_c \quad\text{（连通相，拓扑完好）} \\ \left(\dfrac{\Theta}{\Theta_c}\right)^{\!\zeta} &amp; \Theta &lt; \Theta_c \quad\text{（断裂相，拓扑惩罚）} \end{cases}$$
+    </div>
+    <div class="box box-constraint" style="margin-top:1rem;">
+      归一化：$\alpha + \beta + \gamma = 1,\quad \alpha,\beta,\gamma > 0$
+    </div>
+    <div class="box box-insight" style="margin-top:0.8rem;">
+      当 $\Theta \geq \Theta_c$ 时（网络连通性充分），$\mathcal{T}=1$，方程退化为原始形式；当网络断裂（如星际战争、通信封锁）时，$\mathcal{T} &lt; 1$ 对文明价值施加结构性惩罚——这解释了为何 ORIGIN 在2194年通过控制通信节点而非直接军事手段来压制各殖民地经济。
+    </div>
+  </div>
+
+  <div class="derive-block">
+    <div class="derive-title">方程的极限行为分析</div>
+    <div class="derive-step">
+      <div class="derive-step-n">①</div>
+      <div>$E_f \to \infty$（戴森球级能源），但 $K \approx K_0$（知识停滞）$\Rightarrow \mathcal{CV}_\infty$ 有界，因为 $K/K_0 \approx 1$ 项对总值的限制依然成立。</div>
+    </div>
+    <div class="derive-step">
+      <div class="derive-step-n">②</div>
+      <div>$C \to 0$（因某种灾变文明失去空间控制力）$\Rightarrow \mathcal{CV}_\infty \to 0$，无论能源与知识多么丰富。</div>
+    </div>
+    <div class="derive-step">
+      <div class="derive-step-n">③</div>
+      <div>$\Theta \to 0$（经济网络全面断裂）$\Rightarrow \mathcal{T} \to 0 \Rightarrow \mathcal{CV}_\infty \to 0$，对应文明经济体系的拓扑崩溃。</div>
+    </div>
+  </div>
+
+  <div class="param-section-title">参数说明</div>
+  <table class="param-table">
+    <thead><tr><th>符号</th><th>单位</th><th>含义</th><th>典型范围</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">$\mathcal{CV}_\infty$</td><td class="unit">无量纲</td><td class="desc">文明内禀价值潜力（制度噪声趋优时的极限）</td><td class="range">$(0,+\infty)$</td></tr>
+      <tr><td class="sym">$\mathcal{T}(\Theta)$</td><td class="unit">无量纲</td><td class="desc">拓扑修正因子，反映经济网络连通性对文明价值的结构性影响</td><td class="range">$(0,1]$</td></tr>
+      <tr><td class="sym">$\zeta$</td><td class="unit">无量纲</td><td class="desc">拓扑惩罚指数，断裂相下价值衰减的幂律斜率</td><td class="range">$>1$（推测）</td></tr>
+      <tr><td class="sym">$\Theta_c$</td><td class="unit">无量纲</td><td class="desc">拓扑相变临界密度（引自公理 VIII）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$E_f, K, C$</td><td class="unit">各自单位</td><td class="desc">自由能、知识资本、因果范围（同公理 I）</td><td class="range">—</td></tr>
+      <tr><td class="sym">$\alpha,\beta,\gamma$</td><td class="unit">无量纲</td><td class="desc">产出弹性（满足 $\alpha+\beta+\gamma=1$）</td><td class="range">$(0,1)$</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MASTER SUMMARY
+══════════════════════════════════════════════ -->
+<div class="master-section" id="master">
+  <div class="master-title">公理体系总览</div>
+  <div class="master-subtitle">Nine Axioms of Celestial Topological Economics · Quick Reference</div>
+  <hr class="master-rule">
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom I · 文明价值函数</div>
+      <div class="ref-card-title">Civilization Value</div>
+      <div class="ref-card-eq">$\mathcal{CV}=k(\mathbf r,t)\left(\dfrac{E_f}{E_0}\right)^\alpha\left(\dfrac{K}{K_0}\right)^\beta\left(\dfrac{C}{C_0}\right)^\gamma\left(\dfrac{Q}{Q_0}\right)^\delta$</div>
+      <div class="ref-card-note">归一化 · 互补性约束 · 动态弹性</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom II · 标准价值单位</div>
+      <div class="ref-card-title">Universal Exergy Unit</div>
+      <div class="ref-card-eq">$1\,\mathrm{UEU}=10^9\,\mathrm J$（标准㶲）</div>
+      <div class="ref-card-note">物理可验证 · 跨系统修正证书 ECC</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom III · 因果折现</div>
+      <div class="ref-card-title">Causal Discount</div>
+      <div class="ref-card-eq">$V_t=V_0\exp\!\left[-\lambda(Q,\omega)\tau_{\mathrm{eff}}\right]$<br>$\tau_{\mathrm{eff}}=\dfrac{2L}{c\sqrt{1-v^2/c^2}}$</div>
+      <div class="ref-card-note">往返确认 · 洛伦兹因子 · 类型权重</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom IV · 运输壁垒</div>
+      <div class="ref-card-title">Transport Barrier</div>
+      <div class="ref-card-eq">$\mathrm{TC}=P_fm_{\mathrm{fuel}}+\rho_Rm_{\mathrm{cargo}}+V_{\mathrm{cargo}}\!\left(1-e^{-r\tau}\right)$</div>
+      <div class="ref-card-note">三项叠加 · 利率×延迟耦合</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom V · 信息超越物质</div>
+      <div class="ref-card-title">Information Supremacy</div>
+      <div class="ref-card-eq">$\mathcal{IV}=\dfrac{H_{\mathrm{eff}}}{H_{\mathrm{ref}}}A\,T(t)e^{-\lambda_I\tau}\Omega(n)$<br>$\Omega(n)=\dfrac{1}{1+\kappa\ln n}$</div>
+      <div class="ref-card-note">对数独占 · 技术贬值 · 扩散动力学</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom VI · 文明信用</div>
+      <div class="ref-card-title">Civilization Credit</div>
+      <div class="ref-card-eq">$\mathcal{CR}=Q^a\left(\dfrac{1}{1+S_{\mathrm{rate}}}\right)^b(1+g_K)^c\left(1-P_{\mathrm{def}}e^{-\phi\Delta t}\right)^d$</div>
+      <div class="ref-card-note">乘积结构 · 违约记忆衰减</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom VII · 熵增利率</div>
+      <div class="ref-card-title">Entropy Interest Rate</div>
+      <div class="ref-card-eq">$r=r_0+\eta\dfrac{\dot S/\dot S_0}{Q}+\rho\,\mathrm{Risk}(1+\mu\tau)$</div>
+      <div class="ref-card-note">量纲归一化 · 风险×延迟交叉项</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-num">Axiom VIII · 拓扑相变 ★新</div>
+      <div class="ref-card-title">Topological Phase Transition</div>
+      <div class="ref-card-eq">$C^*=\dfrac{cQ_{\mathrm{min}}}{\lambda_0\ln(V_0/V_{\mathrm{min}})}$<br>$\Theta=\dfrac{\text{有效连接数}/\text{节点数}}{1+\bar\tau/\tau_{\mathrm{ref}}}$</div>
+      <div class="ref-card-note">临界范围 · 分布式跃迁条件</div>
+    </div>
+    <div class="ref-card" style="border-color: var(--rule-heavy);">
+      <div class="ref-card-num">Axiom IX · 基本方程 ★</div>
+      <div class="ref-card-title">Fundamental Equation</div>
+      <div class="ref-card-eq">$\mathcal{CV}_\infty=\left(\dfrac{E_f}{E_0}\right)^\alpha\left(\dfrac{K}{K_0}\right)^\beta\left(\dfrac{C}{C_0}\right)^\gamma\mathcal T(\Theta)$</div>
+      <div class="ref-card-note">终极综合 · 拓扑修正 · 断裂相惩罚</div>
+    </div>
+  </div>
+
+  <hr class="master-rule">
+
+  <div class="coupling-wrap">
+    <div style="margin-bottom:1rem;font-size:0.68rem;letter-spacing:0.15em;color:var(--text-faint);text-transform:uppercase;">公理间的耦合关系</div>
+    <span class="coupling-node">I · 文明价值</span>
+    <span style="color:var(--text-faint)"> ←Q→ </span>
+    <span class="coupling-node">III · 因果折现</span>
+    <span style="color:var(--text-faint)"> ←τ→ </span>
+    <span class="coupling-node">VII · 熵增利率</span>
+    <br style="margin:0.3rem 0;">
+    <span style="color:var(--text-faint);font-size:0.7rem;">↓ r,τ</span>
+    <br>
+    <span class="coupling-node">IV · 运输成本</span>
+    <span style="color:var(--text-faint)"> &nbsp;&nbsp; </span>
+    <span class="coupling-node">V · 信息价值</span>
+    <span style="color:var(--text-faint)"> ←Θ→ </span>
+    <span class="coupling-node">VIII · 拓扑相变</span>
+    <br style="margin:0.3rem 0;">
+    <span style="color:var(--text-faint);font-size:0.7rem;display:block;margin:0.5rem 0;">↓ 全部输入</span>
+    <span class="coupling-node" style="background:var(--paper-warm);border-color:var(--rule-heavy);font-size:0.82rem;padding:0.7rem 1.5rem;">IX · 天体拓扑经济学基本方程</span>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <div class="footer-quote">
+    "一个文明真正的货币，从来不是金钱——<br>
+    而是它能够改变宇宙的能力。"
+  </div>
+  <div class="footer-text">
+    天体拓扑经济学 · Celestial Topological Economics<br>
+    火星大学理论经济研究院 · 木卫三自由科学院数学部 · 猎户座贸易联盟标准委员会<br>
+    公元 2148 年第四修订版 · 本框架受因果边界法则保护，禁止在光速封锁区修改<br><br>
+    Revised &amp; Extended by the Galactic Economic Standards Working Group · v4.0
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+</body>
+</html>
