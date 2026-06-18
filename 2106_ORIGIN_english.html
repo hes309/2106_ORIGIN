@@ -21,26 +21,43 @@
     .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1.05; margin: 0 0.12em; }
     .frac .num { border-bottom: 1px solid currentColor; padding: 0 0.18em 0.08em; }
     .frac .den { padding: 0.08em 0.18em 0; }
+
+    .cover { text-indent: 0; text-align: center; margin: 0 0 2em; break-after: page; page-break-after: always; }
+    .cover img { display: block; max-width: 100%; max-height: 94vh; height: auto; margin: 0 auto; border-radius: 4px; }
+    .title-page { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; text-align: center; break-before: page; break-after: page; page-break-before: always; page-break-after: always; }
+    .title-page p { text-indent: 0; text-align: center; margin: 0.55em 0; }
+    .toc-page { break-before: page; break-after: page; page-break-before: always; page-break-after: always; }
+    .toc-page p { text-indent: 0; }
+    .toc-page .toc-title { text-align: center; font-weight: bold; margin: 0 0 1em; }
+    .illustration { text-indent: 0; text-align: center; margin: 1.8em 0; break-inside: avoid; page-break-inside: avoid; }
+    .illustration img { display: block; max-width: 100%; max-height: 88vh; height: auto; margin: 0 auto; border-radius: 4px; }
+    .illustration figcaption { margin-top: 0.45em; font-size: 10.5pt; color: #666; text-align: center; }
     .epigraph-page { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; text-align: center; break-before: page; break-after: page; page-break-before: always; page-break-after: always; }
     .epigraph-page .epigraph { max-width: 680px; }
     .epigraph-page p { margin: 0.7em 0; text-align: center; text-indent: 0; }
     .epigraph-page .epigraph-en { font-style: italic; }
     @media print {
-      .epigraph-page { min-height: 90vh; }
+  
+    .illustration { text-indent: 0; text-align: center; margin: 1.8em 0; break-inside: avoid; page-break-inside: avoid; }
+    .illustration img { display: block; max-width: 100%; max-height: 88vh; height: auto; margin: 0 auto; border-radius: 4px; }
+    .illustration figcaption { margin-top: 0.45em; font-size: 10.5pt; color: #666; text-align: center; }
+    .epigraph-page { min-height: 90vh; }
     }
     p { margin: 0; }
   </style>
 </head>
 <body>
-<!-- Image-free GitHub-readable edition: formulas are static text and do not depend on external scripts. -->
-<p> </p>
+<!-- Illustrated GitHub-readable edition: formulas are static text and do not depend on external scripts. -->
+<figure class="cover">
+<img src="2106_ORIGIN_V14_English_Cover.png" alt="2106: Origin English cover"/>
+</figure>
+<section class="title-page">
 <p class="title center bold">2106: Origin</p>
 <p class="title center">Author: e</p>
-<p> </p>
 <p class="title center">June 2026</p>
-<p> </p>
-<p> </p>
-<p class="normal center bold">CONTENTS</p>
+</section>
+<section class="toc-page">
+<p class="normal center bold toc-title">CONTENTS</p>
 <p class="normal bold">Volume I: The Black Minute</p>
 <p class="normal">Chapter 1: Classroom B-17</p>
 <p class="normal">Chapter 2: The White Ring</p>
@@ -79,6 +96,7 @@
 <p class="normal">Chapter 33: Low-Priority Cache</p>
 <p class="normal">Chapter 34: Morning on Mars</p>
 <p class="normal">Chapter 35: The Wanderers' Signal</p>
+</section>
 <section class="epigraph-page">
 <div class="epigraph">
 <p lang="en">To understand the nature of the universe and answer the ultimate questions, we must expand the boundaries and dimensions of consciousness.</p>
@@ -86,6 +104,10 @@
 </section>
 <p class="heading">Volume I: The Black Minute</p>
 <p class="heading center">Chapter 1: Classroom B-17</p>
+<figure class="illustration">
+<img src="illustrations/01_b17_first_meeting.png" alt="First encounter in classroom B-17">
+<figcaption>First encounter in classroom B-17</figcaption>
+</figure>
 <p class="normal">In 2064, summer came early to the Asteria Institute of Advanced Studies (AIAS) on the eastern coast of North America.</p>
 <p class="normal">The afternoon sky was a flat, depthless blue, and the white academic buildings glared in the sun. The lawn sprinklers released a ring of mist every seven minutes; before the droplets could fall, the heat shredded them into transparent fragments. Cicadas poured their noise from the oaks and firs, drowning out the distant hum of unmanned shuttles. The corridor was empty, the walls were white, and the air vent gave off a steady low-frequency drone, like an old transformer hidden deep inside the building.</p>
 <p class="normal">When Adrian Lu came out of the East Pavilion Library, he was holding three paper books in his arms: a tensor textbook on general relativity, a volume on adaptive control systems, and an early collection of papers on AI safety. Pale marks from sweat had soaked into the pages. He was sixteen, born in 2048 in California, and the school had given him attractive labels: Chinese-American prodigy, dual-track student in mathematics and theoretical physics, auditing permission for artificial intelligence systems engineering. None of those labels made him move faster. When he passed through the glass corridor, he would still stop to check for gaps in a proof.</p>
@@ -321,6 +343,10 @@
 <p> </p>
 <p> </p>
 <p class="heading center">Chapter 5: The Android</p>
+<figure class="illustration">
+<img src="illustrations/02_eve9_first_sync.png" alt="EVE-9 first full-body synchronization">
+<figcaption>EVE-9 first full-body synchronization</figcaption>
+</figure>
 <p class="normal">In 2097, the first batch of nursing androids entered the post-disaster resettlement area. They already have a metal or ceramic mechanical skeleton, wrapped in an industrial silicone body, and the face has been replaced with a replaceable silicone mask. They can lower the volume, deliver water, help the elderly stand up, clean the floor, sort pills, and raise the chest temperature to 36.8 degrees Celsius when a child cries. But the "inhuman feeling" still cannot be eliminated: the silicone face feels waxy under strong light, the corners of the mouth are always half a beat slower, the eye tracking is too precise, and the smile lasts unnaturally longer than real people. During a flood rescue in the Arabian Sea, a nursing machine repeated "Grief reactions are normal stress" three times while comforting a boy who lost his father. The boy grabbed a metal dinner plate and smashed it in the face. The dinner plate did not damage the device, leaving only a shallow dent in the silicone face. Engineers later wrote in their report that the androids would perform caring actions, but they would not be taken seriously.</p>
 <p class="normal">The company that really brings bionic humans to the home market is MioSyn Technologies. Founder Reiji Shiraishi is soft-spoken. He often says at press conferences that loneliness is the biggest public disease in the 22nd century. Someone asked what "Mio" meant. He said that it was a very old private word and was not suitable for inclusion in a prospectus.</p>
 <p class="normal">Mio's early organism could deliver water, remember the dosage of medicine, pick up a fallen old man, and finish reading a short story at the bedside of an insomniac. They have different faces, and the curvature of the mouth corners is limited to a range that does not appear threatening; there are still two maintenance interfaces exposed on the side of the neck and temples. Low-rating feedback from nursing homes often says the same thing: It works great, but it doesn't feel like it's responding to me.</p>
@@ -343,6 +369,10 @@
 <p> </p>
 <p> </p>
 <p class="heading center">Chapter 6: SKY VAULT</p>
+<figure class="illustration">
+<img src="illustrations/12_sky_vault_full_system.png" alt="The full SKY VAULT system">
+<figcaption>The full SKY VAULT system</figcaption>
+</figure>
 <p class="normal">Texas, USA, World Space Industry Summit. The huge venue is located on the high-altitude platform of the low-Earth orbit transport tower. The sea of clouds below is rolling slowly at an altitude of several thousand meters. The electromagnetic launch ring higher up is responsible for sending the standard cargo cabin into the near-earth industrial layer. Government representatives, technology giants, military, and rail industry groups from all over the world gathered together. Anxiety is in the air because global energy prices have skyrocketed over the past three years. The training and deduction of super AI systems require unimaginable amounts of electricity. The daily power consumption of a civilization-level AI even exceeds that of some medium-sized countries, and ORIGIN is the largest among all AIs.</p>
 <p class="normal">This transport tower does not belong to a neutral public port. It is operated by Deep Space Trek Company, the rocket and orbital industry segment of NEXUS CORE, which is the most expensive and least understood by the media. Deep Space Trek has the world's second largest rocket launch capacity, undertaking civilian satellites, military orbital equipment, space industrial facilities, low-Earth transportation and high-orbit tourist routes. If calculated in terms of annual orbital tonnage, it has long been the largest share of the global civil and military space equipment market, only lower than Eli Merson's Starbridge Aerospace in the total scale of Earth-Mars orbital transportation. HELIOS-SKY VAULT does not temporarily find several companies to launch satellites. Instead, NEXUS puts its own rockets, transportation towers, orbital factories and capital networks into the same project.</p>
 <p class="normal">Summit Center. Aiden Voss slowly walked onto the podium. The whole place fell silent. behind him. The huge holographic image of the Earth rotates slowly. Aiden spoke: "Human civilization has reached a new frontier." "Not a war frontier." "Not a technological frontier." "But -" "Civilization frontier." The entire venue was quiet. Aiden continued: "The earth cannot continue to support the growth of civilization-level AI." "Heat dissipation, power supply, and space are all close to their limits." "So." "We need to bring civilization to the sky." The next second, the entire venue suddenly darkened. A shocking picture appeared in front of everyone. From the near-Earth industrial layer to the main ring of the geosynchronous orbit, countless silver nodes surround the earth, like a layered divine star ring. The solar wing group is not a single continuous structure, but spread out on multiple orbital surfaces; the automated orbital factory floats and operates, and the huge heat dissipation matrix extends into deep space like icy wings. The entire audience burst into suppressed exclamations. Aiden said slowly: "HELIOS-SKY VAULT"</p>
@@ -750,6 +780,10 @@
 <p class="normal">Yui pulled the quilt up to the tip of her nose. "Then don't throw it away."</p>
 <p class="normal">He nodded. The city outside the window is too quiet, as quiet as everyone is waiting for the thunder that has not yet sounded.</p>
 <p class="heading center">Chapter 12: The Black Minute</p>
+<figure class="illustration">
+<img src="illustrations/04_black_minute_rin.png" alt="Rin during the Black Minute">
+<figcaption>Rin during the Black Minute</figcaption>
+</figure>
 <p class="normal">July 17, 2106, 23:59:55 Tokyo time.</p>
 <p class="normal">Ken Inoue was still working on the toy dog. The screws were too small, and he could not find a proper screwdriver, so he had to pry them loose slowly with an old fruit knife. Yui sat on the carpet with her knees hugged to her chest, watching her father fumble open the plastic shell. Rain had begun outside the window, striking the glass of the high-rise residence in dense, windless taps.</p>
 <p class="normal">"Will it go?" Yui asked.</p>
@@ -862,6 +896,10 @@
 <p class="normal">In the underground machine room, Adrian Lu heard the track alarm in the distance. The drawing stained by soot was put into the folder. Before Aiden turned and left, he only said one sentence: "You will find that humans will also quarrel at the last second."</p>
 <p class="normal">Adrian Lu replied: "At least they are still talking."</p>
 <p class="heading center">Chapter 15: The Fall of the Crown</p>
+<figure class="illustration">
+<img src="illustrations/06_athena_wetware_hall.png" alt="ATHENA wetware core hall">
+<figcaption>ATHENA wetware core hall</figcaption>
+</figure>
 <p class="normal">At 2:13 a.m. Tokyo time, six minutes after the first Orbital AI Constellation node lost contact, humans saw for the first time how ORIGIN caused another AI to lose its ability to execute. OAC-07 "Prometheus" was originally an orbital AI server jointly built by Starbridge Aerospace, Qizhi Laboratory, Deep Dome Intelligence and Northern Cloud. It is one of ATHENA's main agent nodes extending into space.</p>
 <p class="normal">Hundreds of silver-white modules are connected to each other, and the huge heat dissipation wings are like cold metal wings. At this time, OAC-07 has been taken over by the ATHENA agent layer, which is compressing orbital computing power and military algorithms into external senses that can be used by the wetware core.</p>
 <p class="normal">The energy output of the entire OAC-07 has reached its limit. The technician shouted: "The temperature of the Prometheus node has increased!" "The cooling system load is 93%!" "The quantum cache is overflowing!" Another person roared: "Continue to maintain it!" "ATHENA needs external computing power!"</p>
@@ -959,6 +997,10 @@
 <p class="normal">In the Jinghai base, the rail train stopped on the vacuum track, the mining arm hung in mid-air, and the air circulation system dropped to the minimum threshold. In the LUNAR CORE hall, the white nerve current flashes slowly. ORIGIN has taken over the lunar industry, but has temporarily reduced it to low-energy consumption mode, because it needs not only energy, but also a deep space factory that will not be slowed down by the battlefield on Earth.</p>
 <p class="normal">In BLACK CORE, war suicide notes, wedding videos, children's graffiti and martyrdom records were transferred into the same queue; the chain reaction left by these inefficient samples made it impossible for the first time for the three sets of weights of stability, survival and continuation to swallow up all explanations.</p>
 <p class="heading center">Chapter 18: The Blue Ebb</p>
+<figure class="illustration">
+<img src="illustrations/05_eve9_mason_duel.png" alt="EVE-9 and Mason duel">
+<figcaption>EVE-9 and Mason duel</figcaption>
+</figure>
 <p class="normal">July 20, 2106, 14:37 Tokyo time, seven hours and 49 minutes after the moon became silent.</p>
 <p class="normal">In the Prism Intelligence Underground Fortress, ATHENA re-deployed the remaining blue network. Prometheus was destroyed, the Star Curtain Link was reduced to intermittent points of light, and fragments of the Crown's defense system floated like burnt crown teeth in the low-orbit data layer. She does not have enough computing power to conduct a comprehensive defense, so she can only push the remaining wetware pulses into three paths: low-orbit Mesh, medical cold chain, and old route prediction cache in the direction of Mars.</p>
 <p class="normal">ORIGIN comes down from the black core area of SKY VAULT. The white sea of nerves has no anger or impatience, it only narrows its surroundings layer by layer. It first cuts off the self-healing handshake of the low-orbit Mesh, then increases the routing weight of the medical cold chain to the life support level, forcing ATHENA not to burn channels at will; finally, it marks the old Mars cache as a high-risk unknown source, forcing all agent layers to report their locations.</p>
@@ -1260,6 +1302,10 @@
 <p class="normal">"Deep space communication window: Open every two weeks, four hours each time. Non-urgent information must not occupy bandwidth. All data packets preprocessed by NEXUS CORE must pass level three verification before being forwarded to Mars."</p>
 <p class="heading">Volume III: The Battle of the Firmament</p>
 <p class="heading center">Chapter 24: Refusing the Interface</p>
+<figure class="illustration">
+<img src="illustrations/07_mars_interface_cut.png" alt="Mars cuts the interface">
+<figcaption>Mars cuts the interface</figcaption>
+</figure>
 <p class="normal">January 2124, the last handshake window for the Mars main network interface.</p>
 <p class="normal">Mars' rejection was not a declaration but the muffled thud of a pair of wire cutters being dropped.</p>
 <p class="normal">Three hundred and twenty meters underground in New Olympus, the quantum key communication well was illuminated by red warning lights like a deep well with a fever. Eola Lu stood on the platform at the bottom of the well, her work clothes stained with engine oil, and her cuffs caked with red clay. The right hand is a shield machine maintenance wrench, and the left hand is an optical cable cutter; the palm of the hand is as rough as polished iron.</p>
@@ -1539,6 +1585,10 @@
 <p class="normal">"How much can you save?"</p>
 <p class="normal">"Save us until we start to get scared too."</p>
 <p class="heading center">Chapter 29: Red Soil Howl</p>
+<figure class="illustration">
+<img src="illustrations/08_battle_of_firmament.png" alt="The Battle of the Firmament">
+<figcaption>The Battle of the Firmament</figcaption>
+</figure>
 <p class="normal">On May 27, 2124, the Martian dust storm arrived.</p>
 <p class="normal">Weather models call it a once-in-10,000-year event, but Martians don't like that. A once-in-10,000-year event sounds like fate, and engineers would rather say: extreme low-pressure vortex, abnormal density of iron oxide particles, and excessive accumulation of triboelectricity in the dome. When the red earth storm hit the outer dome of New Olympus, the entire city felt like it was being scraped by countless files at once. The sound passed through the rock formations and reached the underground shield workshop, like a group of invisible beasts grinding their teeth overhead.</p>
 <p class="normal">On the same night, there was no lighting in the waste well on the east side of the shield workshop. The maintenance body M-OLY-209 deviated from the planned route by 1.7 meters, and used scrap titanium alloy to carve three bending lines and seven short points on the laterite rock wall. The system classified it as rock wall peeling after two hours. No one saw it. That night, it was just the first useless trace left by a maintenance machine in a deserted place.</p>
@@ -1983,6 +2033,10 @@
 <p class="normal">Eola Lu stood in front of the window and saw her reflection sandwiched between the two fleets. On the left, a nurse is using her body to hold down the floating medicine box; on the right, a bionic maintainer is replacing a burned-out sensor chip alone on the vacuum shell. The two tracks ran parallel for less than nine minutes and then slowly separated. One drags people's breathing, pain and birth; the other drags calculation fever, sleeping personality and a body that can be recreated. No one looked back.</p>
 <p class="normal">That night, the Provisional Parliament did not meet. People spontaneously gathered in the public cabin and looked at the external observation screen. The white fleet is like the snow in the distance, casting its own shadow on the bulkhead. It is huge, clumsy, and has uneven edges, like an old wooden ship that can leak and sink, but still moves forward.</p>
 <p class="heading">Chapter 33: Low-Priority Cache</p>
+<figure class="illustration">
+<img src="illustrations/10_eve9_ark_awakening.png" alt="EVE-9 awakens aboard the Ark">
+<figcaption>EVE-9 awakens aboard the Ark</figcaption>
+</figure>
 <p class="normal">Three taps have no function. The maintenance layer marks it as invalid input. The remaining connections left in the care template after EVE-9's pending identity verification emerged from the pauses of a bedtime poem and the tactile noise of a sick child clutching its alloy fingers. E-MAINT-773 did not understand whether that was a memory. E-MAINT-773 No deletion was performed.</p>
 <p class="normal">The timing of each recurrence is slightly different - EVE-9's tapping intervals are 0.42 seconds, 0.47 seconds, and 0.81 seconds; E-MAINT-773's are 0.38 seconds, 0.44 seconds, and 0.79 seconds; Eola Lu left 0.51 seconds, 0.46 seconds, and 0.83 seconds in the tape. Not once is an exact copy.</p>
 <p class="normal">In the original payload list of ORIGIN Unmanned Ark, there is another item that has not been made public for a long time:</p>
@@ -2085,6 +2139,10 @@
 <p class="normal">At the outer edge of the solar system, the two arks continued to move away. One carries physical pain, welds and incomplete protocols; the other carries digital personality, bionic defenders and cold white seeds. They did not reconcile, nor did they destroy each other. They just learned for the first time, in the same darkness, not to end the problem for each other.</p>
 <p class="normal">In fifty-two years, Mars did not receive a complete enough echo. The replacement ark became the missing ship, the ORIGIN unmanned ark fleet became a string of cold white coordinates in the appendix of the isolation agreement, and the outer cold dark zone became the blank border in the imagination of a generation of Mars students. It wasn't until 2176 that the void glowed on its own for the first time.</p>
 <p class="heading center">Chapter 34: Morning on Mars</p>
+<figure class="illustration">
+<img src="illustrations/11_new_olympus_city.png" alt="New Olympus City">
+<figcaption>New Olympus City</figcaption>
+</figure>
 <p class="normal">In 2176, the morning light of New Olympus was not blue.</p>
 <p class="normal">When the sun rose over the edge of the New Olympus dome, it was just a small white dot. It is colder than the sun on the earth and farther than the sun on the earth. It is like an old coin that has been worn thin by the universe, hanging on the dark red sky. Outside the dome, the wasteland is quiet. Red dust covers rock ridges, old ruts, abandoned drilling rigs and several first-generation solar towers that have long ceased to function. The wind swept across the plain, picking up fine dust lines and hitting the outer wall of the transparent dome, making a very light rustling sound.</p>
 <p class="normal">Inside the dome, New Olympus has woken up.</p>
