@@ -10,7 +10,7 @@ Altering, writing sequels to, translating, abridging, or creating derivative wor
 Producing film, television, animation, short video, game, audio drama, radio play, or any other audiovisual adaptations;
 Utilizing this work for commercial publication, paid distribution, commercial training datasets, or any other commercial applications;
 Creating derivative content using the characters, worldbuilding, plot, or settings featured in this work.
-This limited license does not transfer any copyright ownership. All rights for film, animation, game, audio, and other adaptations are reserved exclusively by the author, He Shuai.
+This limited license does not transfer any copyright ownership. All rights for film, animation, game, audio, and other adaptations are reserved exclusively by the author.
 For adaptation and commercial licensing inquiries: hes309@gmail.com
 
 # 《2106：起源》版权声明
@@ -23,7 +23,7 @@ Copyright © 2026。保留所有权利。
 - 制作电影、电视剧、动画、短视频、游戏、有声剧、广播剧或其他视听改编；
 - 将作品用于商业出版、付费传播、商业训练数据或其他商业用途；
 - 使用作品中的人物、世界观、情节或设定制作衍生内容。
-本授权不转让任何著作权。影视、动画、游戏、有声作品及其他改编权均由作者何帅保留。
+本授权不转让任何著作权。影视、动画、游戏、有声作品及其他改编权均由作者保留。
 改编及商业授权联系：hes309@gmail.com
 
 
