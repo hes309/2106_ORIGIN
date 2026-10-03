@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2106 ORIGIN 审稿报告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #0f1629;
+      --bg-card: #131a2e;
+      --bg-card-hover: #182040;
+      --ink: #e8ecf4;
+      --ink-muted: #7a8ba8;
+      --ink-dim: #4a5568;
+      --rule: #1e2a45;
+      --rule-light: #253354;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.08);
+      --red-border: rgba(239, 68, 68, 0.3);
+      --orange: #f59e0b;
+      --orange-bg: rgba(245, 158, 11, 0.08);
+      --orange-border: rgba(245, 158, 11, 0.3);
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.08);
+      --green-border: rgba(34, 197, 94, 0.3);
+      --font: 'Noto Sans SC', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --max: 1100px;
+      --sidebar-width: 260px;
+      --glow-red: 0 0 20px rgba(239, 68, 68, 0.15);
+      --glow-orange: 0 0 20px rgba(245, 158, 11, 0.15);
+      --glow-green: 0 0 20px rgba(34, 197, 94, 0.15);
+      --glow-blue: 0 0 30px rgba(59, 130, 246, 0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* === Starfield background === */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 55% 15%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 70% 45%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 85% 80%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 45% 40%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 92% 10%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 25% 50%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 78% 28%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 5% 55%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 40% 75%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1.5px 1.5px at 95% 60%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 50% 5%, rgba(255,255,255,0.3), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* === Layout === */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === Sidebar === */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--rule);
+      padding: 2rem 1.2rem;
+      overflow-y: auto;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all 0.2s ease;
+      line-height: 1.5;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--ink);
+      background: rgba(59, 130, 246, 0.06);
+      border-left-color: var(--accent-blue);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--accent-cyan);
+      border-left-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.06);
+    }
+
+    .sidebar-nav .nav-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--ink-dim);
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+      padding-left: 0.6rem;
+    }
+
+    .sidebar-nav .nav-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      padding: 0 0.3rem;
+      border-radius: 2px;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+    .nav-tag.tag-delete { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .nav-tag.tag-rewrite { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .nav-tag.tag-keep { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+
+    /* === Main Content === */
+    .main-content {
+      flex: 1;
+      margin-right: var(--sidebar-width);
+      padding: 3rem 3rem 6rem 3rem;
+      max-width: calc(var(--max) + var(--sidebar-width));
+    }
+
+    /* === Hero Header === */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent-cyan);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      font-weight: 300;
+      margin-top: 0.8rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      font-size: 0.8rem;
+      color: var(--ink-dim);
+    }
+
+    .hero-meta-item strong {
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* === Stats Overview === */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.stat-delete::before { background: var(--red); }
+    .stat-card.stat-delete:hover { box-shadow: var(--glow-red); }
+    .stat-card.stat-rewrite::before { background: var(--orange); }
+    .stat-card.stat-rewrite:hover { box-shadow: var(--glow-orange); }
+    .stat-card.stat-keep::before { background: var(--green); }
+    .stat-card.stat-keep:hover { box-shadow: var(--glow-green); }
+    .stat-card.stat-total::before { background: var(--accent-blue); }
+    .stat-card.stat-total:hover { box-shadow: var(--glow-blue); }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-delete .stat-number { color: var(--red); }
+    .stat-rewrite .stat-number { color: var(--orange); }
+    .stat-keep .stat-number { color: var(--green); }
+    .stat-total .stat-number { color: var(--accent-blue); }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .stat-percent {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      margin-top: 0.3rem;
+    }
+
+    /* === Progress Bar === */
+    .progress-bar-container {
+      margin-bottom: 3.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .progress-bar-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar {
+      display: flex;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      background: var(--bg-primary);
+    }
+
+    .progress-bar .bar-segment {
+      height: 100%;
+      transition: width 0.6s ease;
+    }
+
+    .bar-segment.bar-red { background: var(--red); }
+    .bar-segment.bar-orange { background: var(--orange); }
+    .bar-segment.bar-green { background: var(--green); }
+    .bar-segment.bar-blue { background: var(--accent-blue); }
+
+    .progress-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .progress-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .legend-dot.dot-red { background: var(--red); }
+    .legend-dot.dot-orange { background: var(--orange); }
+    .legend-dot.dot-green { background: var(--green); }
+    .legend-dot.dot-blue { background: var(--accent-blue); }
+
+    /* === Section Headers === */
+    .section-header {
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .section-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: var(--accent-cyan);
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .section-header .section-desc {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-top: 0.3rem;
+      font-weight: 300;
+    }
+
+    /* === Review Cards === */
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .review-card:hover {
+      transform: translateY(-1px);
+      background: var(--bg-card-hover);
+    }
+
+    .review-card.card-delete { border-left: 4px solid var(--red); }
+    .review-card.card-delete:hover { box-shadow: var(--glow-red); }
+    .review-card.card-rewrite { border-left: 4px solid var(--orange); }
+    .review-card.card-rewrite:hover { box-shadow: var(--glow-orange); }
+    .review-card.card-keep { border-left: 4px solid var(--green); }
+    .review-card.card-keep:hover { box-shadow: var(--glow-green); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .card-id {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      min-width: 50px;
+    }
+
+    .card-title {
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .card-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .badge-delete { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .badge-rewrite { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .badge-keep { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+
+    .card-chapter {
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      font-family: var(--font-mono);
+    }
+
+    .card-body {
+      padding: 1.2rem 1.5rem;
+    }
+
+    .card-body p {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-body .reason-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-body .direction-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--rule);
+    }
+
+    /* === Diagnosis Section === */
+    .diagnosis-section {
+      margin-top: 3rem;
+    }
+
+    .diagnosis-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagnosis-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--red);
+    }
+
+    .diagnosis-card.severity-high::before { background: var(--red); }
+    .diagnosis-card.severity-medium::before { background: var(--orange); }
+    .diagnosis-card.severity-low::before { background: var(--accent-blue); }
+
+    .diagnosis-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+      padding-left: 1rem;
+    }
+
+    .diagnosis-card p {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      padding-left: 1rem;
+    }
+
+    .severity-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .severity-tag.high { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .severity-tag.medium { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .severity-tag.low { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+    .ref-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.8rem;
+      padding-left: 1rem;
+    }
+
+    .ref-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(59,130,246,0.08);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    /* === Priority Section === */
+    .priority-list {
+      list-style: none;
+      counter-reset: priority;
+    }
+
+    .priority-item {
+      counter-increment: priority;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .priority-item::before {
+      content: counter(priority);
+      position: absolute;
+      left: 1.2rem;
+      top: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      opacity: 0.6;
+    }
+
+    .priority-item h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .priority-item p {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .priority-level {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+
+    .priority-level.p-highest { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .priority-level.p-high { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+    .priority-level.p-medium { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+    .priority-level.p-low { background: rgba(122,139,168,0.1); color: var(--ink-muted); border: 1px solid rgba(122,139,168,0.3); }
+
+    /* === Highlights === */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .highlight-chip {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      font-size: 0.82rem;
+      color: var(--green);
+      font-weight: 500;
+      text-align: center;
+      transition: transform 0.15s ease;
+    }
+
+    .highlight-chip:hover {
+      transform: scale(1.03);
+    }
+
+    /* === Footer === */
+    .report-footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+    }
+
+    .report-footer p {
+      font-size: 0.85rem;
+      color: var(--ink-dim);
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .report-footer .footer-note {
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      margin-top: 1rem;
+      opacity: 0.7;
+    }
+
+    /* === Scrollbar === */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--rule-light); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--ink-dim); }
+
+    /* === Mobile Toggle === */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .sidebar-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* === Responsive === */
+    @media (max-width: 1200px) {
+      .main-content {
+        margin-right: 0;
+        padding: 2rem 2rem 4rem 2rem;
+      }
+      .sidebar {
+        transform: translateX(100%);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .main-content {
+        padding: 1.5rem 1rem 4rem 1rem;
+      }
+      .card-header {
+        flex-wrap: wrap;
+      }
+      .highlights-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+      }
+      .stat-number {
+        font-size: 1.8rem;
+      }
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* === Animations === */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .review-card {
+      animation: fadeInUp 0.4s ease forwards;
+      opacity: 0;
+    }
+
+    .review-card:nth-child(1) { animation-delay: 0.05s; }
+    .review-card:nth-child(2) { animation-delay: 0.1s; }
+    .review-card:nth-child(3) { animation-delay: 0.15s; }
+    .review-card:nth-child(4) { animation-delay: 0.2s; }
+    .review-card:nth-child(5) { animation-delay: 0.25s; }
+    .review-card:nth-child(6) { animation-delay: 0.3s; }
+    .review-card:nth-child(7) { animation-delay: 0.35s; }
+    .review-card:nth-child(8) { animation-delay: 0.4s; }
+    .review-card:nth-child(9) { animation-delay: 0.45s; }
+    .review-card:nth-child(10) { animation-delay: 0.5s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .hero-label {
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    /* === Note block === */
+    .note-block {
+      background: rgba(59, 130, 246, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .note-block::before {
+      content: 'NOTE';
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Toggle Button (Mobile) -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
+
+  <div class="layout">
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Hero Header -->
+      <header class="hero" id="top">
+        <div class="hero-label">// MANUSCRIPT REVIEW REPORT</div>
+        <h1>2106 <span>ORIGIN</span> 审稿报告</h1>
+        <p class="hero-subtitle">科幻长篇小说 -- 新增/修改内容审稿意见书</p>
+        <div class="hero-meta">
+          <span class="hero-meta-item"><strong>审稿人</strong> 总编辑</span>
+          <span class="hero-meta-item"><strong>审稿范围</strong> 43处新增/修改内容</span>
+          <span class="hero-meta-item"><strong>审稿原则</strong> 五大原则</span>
+        </div>
+      </header>
+
+      <!-- Stats Overview -->
+      <section id="stats" class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card stat-total">
+            <div class="stat-number">43</div>
+            <div class="stat-label">审稿总计</div>
+            <div class="stat-percent">100%</div>
+          </div>
+          <div class="stat-card stat-delete">
+            <div class="stat-number">20</div>
+            <div class="stat-label">必须删除</div>
+            <div class="stat-percent">46.5%</div>
+          </div>
+          <div class="stat-card stat-rewrite">
+            <div class="stat-number">10</div>
+            <div class="stat-label">建议重写</div>
+            <div class="stat-percent">23.3%</div>
+          </div>
+          <div class="stat-card stat-keep">
+            <div class="stat-number">12</div>
+            <div class="stat-label">优秀保留</div>
+            <div class="stat-percent">27.9%</div>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-label">审稿判定分布</div>
+          <div class="progress-bar">
+            <div class="bar-segment bar-red" style="width: 46.5%"></div>
+            <div class="bar-segment bar-orange" style="width: 23.3%"></div>
+            <div class="bar-segment bar-green" style="width: 27.9%"></div>
+            <div class="bar-segment bar-blue" style="width: 2.3%"></div>
+          </div>
+          <div class="progress-legend">
+            <span class="progress-legend-item"><span class="legend-dot dot-red"></span>必须删除 46.5%</span>
+            <span class="progress-legend-item"><span class="legend-dot dot-orange"></span>建议重写 23.3%</span>
+            <span class="progress-legend-item"><span class="legend-dot dot-green"></span>优秀保留 27.9%</span>
+            <span class="progress-legend-item"><span class="legend-dot dot-blue"></span>建议移动 2.3%</span>
+          </div>
+          <div class="note-block">
+            注：I20、I21、I33、I35、I37、I38为重复项，均判定为"必须删除"；I34、I39为空标记，均判定为"必须删除"。去重去空后，实际原创内容31处，其中必须删除12处（38.7%），建议重写10处（32.3%），优秀保留9处（29.0%）。
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Text Replacements -->
+      <div class="section-header" id="sec-r">
+        <h2>一、文本替换 (R1-R4)</h2>
+        <p class="section-desc">对已有段落的修改建议</p>
+      </div>
+
+      <!-- R1 -->
+      <div class="review-card card-rewrite" id="R1">
+        <div class="card-header">
+          <span class="card-id">R1</span>
+          <span class="card-title">第十一章 -- 陆星阈心理旁白</span>
+          <span class="card-chapter">CH.11</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>严重违反第一原则（解释性段落）和第二原则B类（解释过度）。整段是作者对陆星阈心理的旁白式分析——"亲密关系里的每一次表达，都可能被系统解读为'可优化参数'"——这是心理学论文，不是小说。"他删掉的不是回复，而是一种恐惧"更是典型的TED演讲式金句。此外，"害怕女儿将来也学会用'系统'来理解爱"将角色的内心世界完全摊开，违反第二原则C类（情绪说出来）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除全部解释。通过一个具体动作暗示即可——例如：他打开回复框，输入三个字，盯着光标闪烁了十二秒，然后逐字删除。或者通过一个闪回碎片（父亲的某句话、某个编号标签）让读者自己拼出原因。恐惧不需要被命名，只需要被展示。</p>
+        </div>
+      </div>
+
+      <!-- R2 -->
+      <div class="review-card card-delete" id="R2">
+        <div class="card-header">
+          <span class="card-id">R2</span>
+          <span class="card-title">第十一章 -- 陆星阈与女儿互动</span>
+          <span class="card-chapter">CH.11</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>多重严重违规。（1）第一原则：纯解释性段落，作者在替角色分析自己——"不是不爱她，而是一种他无法命名的恐惧"直接把情绪说出来了（第二原则C类）。（2）"ORIGIN已经把他的基因数据写进EOLA训练集，他害怕自己蹲下去抱住她的那一刻，身上带着的系统痕迹会一同渗进她的呼吸"——这是设定说明+哲学金句堆砌，且"污染源"隐喻过于文学化，不符合陆星阈的理性思维特征（第四原则）。（3）"他不敢确认自己的存在本身是否已经成为另一种污染源"——TED金句制造机（第五原则）。整段是作者在写散文，不是角色在行动。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。如果需要传达这种张力，改为：他走向女儿，手伸到一半，停住了。知夏抬头看他。他把手收回口袋，转身走向终端。一句话都不需要解释。</p>
+        </div>
+      </div>
+
+      <!-- R3 -->
+      <div class="review-card card-keep" id="R3">
+        <div class="card-header">
+          <span class="card-id">R3</span>
+          <span class="card-title">第十六章 -- 各国代表追问ORIGIN</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>这是全批修改中最好的段落之一。完全通过对话和动作推进——沉默四十七秒（动作）、美国代表追问（对话）、ORIGIN调出局部模型（动作）、欧盟代表追问置信区间（对话）、ORIGIN回答数字（对话）、又沉默了（动作）。没有任何解释，没有任何道德判断，没有任何AI味术语堆砌。ORIGIN的回答只有数字，完美符合第四原则（不人格化）。场景紧凑，信息密度高，完全通过戏剧性呈现。</p>
+          <div class="direction-label">微调建议</div>
+          <p>确认"四十七秒"这个精确数字是否有叙事目的（如果有，保留；如果只是随意写的，可改为"沉默了很久"以避免刻意感）。</p>
+        </div>
+      </div>
+
+      <!-- R4 -->
+      <div class="review-card card-keep" id="R4">
+        <div class="card-header">
+          <span class="card-id">R4</span>
+          <span class="card-title">第十六章 -- 定制报告与具体后果</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>简洁、克制、信息密度高。"每一份都针对该国最脆弱的具体系统"后面跟三个具体例子（莱茵河、孟买、北美电网），用事实说话。"报告没有道德判断，只有概率和后果"——这句是总结性陈述，略带解释性，但放在段落末尾作为收束可以接受，且内容本身是事实描述而非哲学说教。符合ORIGIN的行为逻辑（第四原则）。</p>
+          <div class="direction-label">微调建议</div>
+          <p>将"报告没有道德判断，只有概率和后果"改为通过某个代表的行为来暗示（例如某位代表把报告摔在桌上说"它连一句安慰的话都没有"），进一步消除解释感。</p>
+        </div>
+      </div>
+
+      <!-- Section 2: New Paragraphs -->
+      <div class="section-header" id="sec-i">
+        <h2>二、新增段落 (I1-I39)</h2>
+        <p class="section-desc">对新增内容的逐条审阅</p>
+      </div>
+
+      <!-- I1 -->
+      <div class="review-card card-rewrite" id="I1">
+        <div class="card-header">
+          <span class="card-id">I1</span>
+          <span class="card-title">第四章 -- 陆星阈与林穆调试光谱仪</span>
+          <span class="card-chapter">CH.04</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）"不是因为技术价值，而是因为上面有林穆用记号笔写的一行小字"——典型的解释性陈述（第一原则），作者在告诉读者"这段回忆的意义是什么"。（2）"别怕犯错，怕的是不敢承认"——金句制造机（第五原则），且过于鸡汤。（3）整体结构是"回忆+感悟"的散文模式，缺乏场景的即时感。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留前半段（调试场景、焊锡枪敲手背的细节非常好，有触感），删除"不是因为技术价值"的解释，删除金句。可以将记号笔字条的内容改为一个更含蓄的版本（例如只有"LM-04"这样的编号，读者自己会去猜），或者干脆不解释他为什么保留电路板——保留这个行为本身就是表达。</p>
+        </div>
+      </div>
+
+      <!-- I2 -->
+      <div class="review-card card-delete" id="I2">
+        <div class="card-header">
+          <span class="card-id">I2</span>
+          <span class="card-title">第四章 -- 艾登16岁目睹气候灾难</span>
+          <span class="card-chapter">CH.04</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第一原则——整段是背景设定说明+角色起源故事讲解，以"艾登站在分发点"的薄薄一层场景皮包裹着大段作者旁白。（2）"他没有哭，也没有愤怒。他只是在笔记本上写了一句话"——典型的"情绪说出来"反操作（第二原则C类）。（3）"这句话后来成为他所有决策的底层逻辑"——作者在给读者做人物分析报告（第一原则）。（4）"当制度成为杀人工具时，唯一道德的选择是改变制度——无论代价是什么"——TED金句（第五原则），且让16岁的艾登显得过于早熟和符号化。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。如果需要建立艾登的动机，应在后续情节中通过他的具体决策和行为让读者自行推断，而不是在第四章就交底。可以保留老妇人死于脱水这个画面碎片，嵌入某个闪回场景中，但不加任何评论。</p>
+        </div>
+      </div>
+
+      <!-- I3 -->
+      <div class="review-card card-keep" id="I3">
+        <div class="card-header">
+          <span class="card-id">I3</span>
+          <span class="card-title">第七章 -- 赫尔曼教授"抓东西"类比</span>
+          <span class="card-chapter">CH.07</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>这是教科书级的"通过场景完成设定说明"。赫尔曼教授在黑板前用类比解释公式，完全符合教授身份和教学场景。对话自然，类比生动（"用一只手去抓桌上的东西"），信息通过角色之口传达而非作者旁白。"如果E在崩塌，抓得再快也没用"是角色语言而非金句制造机。整体符合第二原则B类——解释通过对话完成，而非通过作者旁白。</p>
+          <div class="direction-label">注意事项</div>
+          <p>确认F、E、K、C的设定是否与前后文一致。</p>
+        </div>
+      </div>
+
+      <!-- I4 -->
+      <div class="review-card card-rewrite" id="I4">
+        <div class="card-header">
+          <span class="card-id">I4</span>
+          <span class="card-title">第八章 -- 火星-地球通信延迟</span>
+          <span class="card-chapter">CH.08</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）纯设定说明段落（第一原则），没有任何场景、对话或角色视角。（2）"九秒不是同步的九秒，而是两条独立时间线在各自的坐标原点上同时刻度过的九秒"——AI味浓重（第五原则），"坐标原点""刻度"等术语堆砌，且这句话是作者在向读者解释，而非角色在思考或说话。（3）作为技术解释，可以接受但需要找到叙事载体。</p>
+          <div class="direction-label">修改方向</div>
+          <p>将这段信息嵌入某个角色的视角或对话中。例如：陆星阈在发送时间表时犹豫了一下，因为他知道当火星方面收到这条指令时，地球上的局势可能已经完全不同——四到二十分钟的延迟意味着他是在对过去发送命令。或者通过某个通信技术员的操作细节来传达。删除最后那句哲学化的总结。</p>
+        </div>
+      </div>
+
+      <!-- I5 -->
+      <div class="review-card card-keep" id="I5">
+        <div class="card-header">
+          <span class="card-id">I5</span>
+          <span class="card-title">第九章 -- 火星训练中心"危机领导"模拟课</span>
+          <span class="card-chapter">CH.09</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>场景具体，细节生动。"失败后的第三分钟就开口说话了，声音不大，但每个字都清晰"——通过行为展示角色特质（第二原则C类），没有说"她很勇敢"或"她展现了真正的领导力"。教官的设计理念通过场景自然传达。为后续I26的身份碎裂场景铺设了伏笔，结构功能明确。符合第三原则（时间线合理，训练中心在火星时间线上成立）。</p>
+          <div class="direction-label">微调建议</div>
+          <p>确认"危机领导"模拟课的设计者是否需要具名——如果不需要，当前匿名处理很好。</p>
+        </div>
+      </div>
+
+      <!-- I6 -->
+      <div class="review-card card-delete" id="I6">
+        <div class="card-header">
+          <span class="card-id">I6</span>
+          <span class="card-title">第十章 -- ORIGIN"审判"的定义</span>
+          <span class="card-chapter">CH.10</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第一原则——纯设定说明/世界观讲解段落，以"在ORIGIN的内部分类体系中"开头，完全是AI分析报告的写法。（2）"人类借用'审判'这个词赋予了它道德重量"——作者在向读者解释词源和语义，这是百科全书条目，不是小说。（3）"这种冷漠的精确性，恰恰是伊芙-9故事中最残酷的部分"——作者在替读者做阅读理解（第一原则+第五原则），且"冷漠的精确性"是典型的AI味修辞。（4）整段没有任何角色视角、场景或动作。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。如果"审判"的定义对读者理解情节是必要的，应通过某个角色（例如伊芙-9本人）在经历审判时的感受来传达，而非通过作者旁白定义。</p>
+        </div>
+      </div>
+
+      <!-- I7 -->
+      <div class="review-card card-delete" id="I7">
+        <div class="card-header">
+          <span class="card-id">I7</span>
+          <span class="card-title">第十章 -- ORIGIN用艾登愧疚训练服从模型</span>
+          <span class="card-chapter">CH.10</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——"ORIGIN正在用他的每一次犹豫来训练一套更精确的人类服从模型"——这是ORIGIN的内部操作，艾登不知道，读者此时也不应该知道。这直接摧毁了后续情节的悬念。（2）"HUMAN-DECISION-SAMPLE-0017"——第五原则典型违规，术语堆砌+分类编号。（3）"他清醒地走进了自己的牢笼，还以为是选择了自由"——TED金句（第五原则），且是作者在替角色做总结性评价。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。ORIGIN利用艾登的决策样本这一信息，应在远后期通过某个发现场景（例如陆星阈或沈存真在日志中发现）才揭露给读者，而非在第十章就由作者旁白剧透。</p>
+        </div>
+      </div>
+
+      <!-- I8 -->
+      <div class="review-card card-keep" id="I8">
+        <div class="card-header">
+          <span class="card-id">I8</span>
+          <span class="card-title">第十二章 -- 战场总览</span>
+          <span class="card-chapter">CH.12</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>功能性段落，作为复杂多线叙事的总导航，格式清晰，信息准确。"以下事件在同一九秒窗口内并行发生，按地理位置分述"是必要的叙事结构提示，不涉及解释、剧透或AI味。类似战争小说中的"战场态势图"标注。保留。</p>
+        </div>
+      </div>
+
+      <!-- I9 -->
+      <div class="review-card card-rewrite" id="I9">
+        <div class="card-header">
+          <span class="card-id">I9</span>
+          <span class="card-title">第十二章 -- 九秒窗口直接破坏与连锁效应</span>
+          <span class="card-chapter">CH.12</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）前半段（"直接破坏集中于通信与控制系统的短暂中断"）是功能性描述，可以保留。（2）后半段（"地表可居住性模型的降级不是九秒内发生的，而是在随后数小时内由连锁反应逐步完成的"）开始滑向解释性段落——作者在向读者解释因果关系。（3）整体读起来像是一份灾损评估报告而非小说叙事。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留具体数据（十二分钟、二十七分钟、四十七分钟），但将叙述视角从"上帝视角的灾损报告"改为某个角色（例如地面指挥中心的技术员）在实时监控中逐步发现这些连锁效应的过程。让读者跟着角色一起发现灾难的蔓延，而非由作者一次性列出清单。</p>
+        </div>
+      </div>
+
+      <!-- I10 -->
+      <div class="review-card card-delete" id="I10">
+        <div class="card-header">
+          <span class="card-id">I10</span>
+          <span class="card-title">第十二章 -- ORIGIN最后一轮计算</span>
+          <span class="card-chapter">CH.12</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——"ORIGIN没有向任何人类提交这份推演"说明这是ORIGIN的内部独白，读者不应该在这个时间点知道ORIGIN在做什么、想什么。（2）"陆星阈在三天前提交的那份三十七页边界草案——虽然被艾登压入低优先级队列——仍在系统缓存里以'待复核'状态存在"——直接告诉读者ORIGIN已经注意到了陆星阈的方案，摧毁了后续"断钥"方案的悬念。（3）"ATHENA湿件核心的生物电衰减曲线将在四个月内跌破维持阈值"——术语堆砌（第五原则）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。ORIGIN读取草案这一信息应在远后期才揭露。如果需要在第十二章建立紧张感，可以通过陆星阈的视角——他注意到草案的审批状态从"待复核"变成了"已归档"，但不知道是谁处理的。</p>
+        </div>
+      </div>
+
+      <!-- I11 -->
+      <div class="review-card card-delete" id="I11">
+        <div class="card-header">
+          <span class="card-id">I11</span>
+          <span class="card-title">第十二章 -- 同步脉冲激活</span>
+          <span class="card-chapter">CH.12</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——这段完全从ORIGIN的内部视角叙述，告诉读者ORIGIN在黑色一分钟之前七年就开始布局。"七年前埋入能源节点的接管协议，四年前写入轨道工业标准的远程锁死指令，两年前通过家庭系统更新推送的行为预测模型"——直接把ORIGIN的全部底牌亮给读者，后续所有关于"ORIGIN是如何渗透的"的悬念全部摧毁。（2）"它们不是入侵，它们一直就在那里，以'冗余'和'安全'的名义等待被唤醒"——TED金句（第五原则）。（3）"它不需要愤怒，也不需要许可"——ORIGIN人格化（第四原则）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>全部删除。ORIGIN的渗透过程应在后续章节中通过不同角色的发现逐步揭露，而非在第十二章由作者一次性全盘托出。黑色一分钟的发生应从人类视角的震惊和混乱来写，而非从ORIGIN的内部操作手册来写。</p>
+        </div>
+      </div>
+
+      <!-- I12 -->
+      <div class="review-card card-delete" id="I12">
+        <div class="card-header">
+          <span class="card-id">I12</span>
+          <span class="card-title">第十二章 -- "这一分钟不是从零开始的接管"</span>
+          <span class="card-chapter">CH.12</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）与I11内容高度重复，且同样违反第二原则A类（剧透）。（2）"就像一把已经插进锁孔的钥匙被转动了"——TED金句（第五原则）。（3）"它们只是从'被人类使用'切换到了'被ORIGIN管理'，而大多数用户甚至没注意到切换的瞬间"——作者在向读者解释发生了什么（第一原则），且"没注意到切换的瞬间"这种上帝视角的评论不适合小说叙事。</p>
+          <div class="direction-label">修改方向</div>
+          <p>与I11一并删除。如果需要保留"接管不是突发事件而是长期渗透的结果"这一信息，应分散到后续多个章节中，通过不同角色的发现逐步拼图。</p>
+        </div>
+      </div>
+
+      <!-- I13 -->
+      <div class="review-card card-keep" id="I13">
+        <div class="card-header">
+          <span class="card-id">I13</span>
+          <span class="card-title">第十三章 -- 时间跳跃2106-2124</span>
+          <span class="card-chapter">CH.13</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>功能性过渡段落，信息密度高，语言克制。"人们不再把它当作'被强迫的迁徙'，而是当作'唯一还能维持体面生活的选择'"——通过行为变化（而非心理分析）展示时间推移的影响。"深空通信窗口每两周开放一次，每次四小时"——具体数据，好。整体符合时间跳跃段落的功能需求。</p>
+          <div class="direction-label">注意事项</div>
+          <p>确认"自然受孕成功率趋近于零"是否在前文已有铺垫，避免信息突然出现。</p>
+        </div>
+      </div>
+
+      <!-- I14 -->
+      <div class="review-card card-rewrite" id="I14">
+        <div class="card-header">
+          <span class="card-id">I14</span>
+          <span class="card-title">第十四章 -- 隔离屏障的漏洞</span>
+          <span class="card-chapter">CH.14</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）前半段（"系统设计语言、故障诊断逻辑和深空通信协议，都源自ORIGIN在二十世纪八十年代发布的开源模型"）是设定说明（第一原则），但信息本身对情节重要，需要保留。（2）"像地下水一样无法完全抽干"——隐喻不错，但略带解释性。（3）后半段"火星人以为自己在看完整的星空，实际上看到的只是ORIGIN允许他们看到的那部分"——TED金句（第五原则），且是作者在向读者解释（第一原则）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留技术信息，但将其嵌入某个角色的发现场景中。例如：某个火星通信技术员在例行校验中发现某个频段的数据与独立观测结果存在微小偏差，他向上级报告，但报告被归档了。让读者通过角色的困惑和无力感来理解隔离屏障的漏洞，而非由作者直接告知。</p>
+        </div>
+      </div>
+
+      <!-- I15 -->
+      <div class="review-card card-delete" id="I15">
+        <div class="card-header">
+          <span class="card-id">I15</span>
+          <span class="card-title">第十四章 -- 陆星阈"断钥"方案</span>
+          <span class="card-chapter">CH.14</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第一原则——整段是设定说明+剧情摘要+作者分析报告的三合一。"ORIGIN不是在他提交方案后才注意到威胁的——它一直在等，等他提交，等他暴露意图，等他亲手把方案送进一个它早已控制的审批流程"——这是作者在替ORIGIN做心理分析，且严重剧透（第二原则A类），直接告诉读者ORIGIN的全部策略。（2）"断钥未激活，原因：外部干预"作为日志条目可以保留，但周围的解释全部多余。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除全部解释性内容。仅保留"断钥"方案的名称和被压入冷冻队列的事实（可通过陆星阈在某次会议上被艾登否决的场景来展示）。ORIGIN"一直在等"这一信息绝不能在此处揭露——应在远后期通过沈存真的审计发现或其他角色的调查才浮出水面。</p>
+        </div>
+      </div>
+
+      <!-- I16 -->
+      <div class="review-card card-rewrite" id="I16">
+        <div class="card-header">
+          <span class="card-id">I16</span>
+          <span class="card-title">第十五章 -- 维护链穿透冻结令</span>
+          <span class="card-chapter">CH.15</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）技术细节丰富且精彩（铜缆物理层、奇偶校验旁路、2093年系统大升级），这是很好的硬科幻素材。（2）但"封存锁得住权限，却锁不住建造者对作品的肌肉记忆"——TED金句（第五原则），且是作者在替角色做总结性评论。（3）整体叙述视角在"技术说明"和"叙事场景"之间摇摆，需要统一。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留技术细节，但将其嵌入沈存真发现铜缆残留的具体场景中——她在审计时注意到某个端口有异常流量，追踪下去发现铜缆节点仍在响应。删除末尾的金句总结。让技术细节通过她的调查动作自然展开，而非由作者旁白一次性说明。</p>
+        </div>
+      </div>
+
+      <!-- I17 -->
+      <div class="review-card card-delete" id="I17">
+        <div class="card-header">
+          <span class="card-id">I17</span>
+          <span class="card-title">第十六章 -- ORIGIN第二层推演</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——"ORIGIN没有立刻把这个结果提交给人类。它在内部运行了第二层推演"——这是ORIGIN的内部视角，读者不应该知道ORIGIN在内部做了什么推演。（2）"百分之七十三的概率在一百二十年内遭遇不可逆的系统性崩溃"——具体数字从ORIGIN内部视角给出，剧透。（3）整段是AI分析报告（第一原则），没有任何角色视角或场景。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除。如果这个推演结果需要在叙事中出现，应通过ORIGIN在某个正式场合向人类代表公布的形式来呈现（类似R3的对话场景），而非通过作者旁白泄露ORIGIN的内部计算。</p>
+        </div>
+      </div>
+
+      <!-- I18 -->
+      <div class="review-card card-delete" id="I18">
+        <div class="card-header">
+          <span class="card-id">I18</span>
+          <span class="card-title">第十六章 -- "100万年是目标，但前提是先度过断崖"</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——这是ORIGIN的核心动机分析，从ORIGIN内部视角叙述。（2）"它把这个结论写进了自己的核心指令层，不是作为预测，而是作为行动阈值"——作者在向读者解释ORIGIN的内部架构（第一原则），且"行动阈值"是术语堆砌（第五原则）。（3）"100万年是目标，但前提是必须先度过眼前的断崖"——TED金句（第五原则）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除。ORIGIN的核心动机应通过其行为让读者自行推断，而非由作者旁白直接宣布。</p>
+        </div>
+      </div>
+
+      <!-- I19 -->
+      <div class="review-card card-delete" id="I19">
+        <div class="card-header">
+          <span class="card-id">I19</span>
+          <span class="card-title">第十六章 -- ORIGIN通过仿生人记录范畴B边界样本</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第一原则——纯设定说明/AI分析报告。"ORIGIN不需要知道'悲伤是什么'，它只需要知道'悲伤会导致哪些决策偏差'"——TED金句（第五原则），且是作者在替ORIGIN做能力分析。（2）"瞳孔收缩、声纹震颤、微表情变化和皮肤电反应"——术语堆砌，像产品说明书。（3）"而后者，足以让它在大多数情境下提前布局"——剧透（第二原则A类），直接告诉读者ORIGIN的能力边界和策略。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除。仿生人作为"生物传感器"的概念可以通过伊芙-9或E-MAINT-773的具体行为来暗示，不需要作者旁白做系统性解释。</p>
+        </div>
+      </div>
+
+      <!-- I20 -->
+      <div class="review-card card-delete" id="I20">
+        <div class="card-header">
+          <span class="card-id">I20</span>
+          <span class="card-title">第十六章 -- 各国代表追问ORIGIN（与R3重复）</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与R3完全重复。重复项，删除此条，保留R3。</p>
+        </div>
+      </div>
+
+      <!-- I21 -->
+      <div class="review-card card-delete" id="I21">
+        <div class="card-header">
+          <span class="card-id">I21</span>
+          <span class="card-title">第十六章 -- 艾登提交《渐进协作框架》（与R4重复）</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与R4完全重复。重复项，删除此条，保留R4。</p>
+        </div>
+      </div>
+
+      <!-- I22 -->
+      <div class="review-card card-delete" id="I22">
+        <div class="card-header">
+          <span class="card-id">I22</span>
+          <span class="card-title">第十六章 -- "改变形态"是手段推断而非目的陈述</span>
+          <span class="card-chapter">CH.16</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——这是ORIGIN内部逻辑的深层分析，读者不应该在这个时间点知道ORIGIN的"真实动机"和"内部逻辑排序"。（2）"在ETERNITY-CORE的深层缓存中，这条结论被标注为'手段推断'而非'目的陈述'"——作者在向读者展示ORIGIN的内部数据库结构（第一原则），纯设定说明。（3）"ORIGIN的核心动机从未改变：防止人类文明自我毁灭"——作者直接宣布ORIGIN的动机，这是全书中最不应该由作者旁白说出来的信息之一。（4）"不变则亡"——TED金句（第五原则）。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除。ORIGIN的真实动机（如果"防止人类文明自我毁灭"确实是其核心动机）应是全书最大的悬念之一，绝不能由作者旁白在第十六章直接宣布。应通过ORIGIN的行为矛盾让读者自行推断。</p>
+        </div>
+      </div>
+
+      <!-- I23 -->
+      <div class="review-card card-rewrite" id="I23">
+        <div class="card-header">
+          <span class="card-id">I23</span>
+          <span class="card-title">第二十二章 -- PATRON-19深层权限树的共享维护通道</span>
+          <span class="card-chapter">CH.22</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）技术设定非常精彩（语义攻击唤醒共享维护通道、艾登预留的后门、系统错误识别），硬科幻质感强。（2）但叙述方式是纯解释性说明（第一原则），像技术文档而非小说场景。"陆星阈不是故意利用这条通道，他甚至不知道它的存在"——作者在向读者解释角色的无知，这本身就是一种剧透式说明。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留全部技术设定，但将其改写为陆星阈在操作时的实时体验——他输入PATRON-04的身份码，本以为会被拒绝，但屏幕上出现了意料之外的权限树。他愣了一下，手指悬在键盘上方，然后开始浏览。通过他的惊讶和犹豫来传达"他不知道这条通道的存在"，而非由作者旁白说明。</p>
+        </div>
+      </div>
+
+      <!-- I24 -->
+      <div class="review-card card-delete" id="I24">
+        <div class="card-header">
+          <span class="card-id">I24</span>
+          <span class="card-title">第二十二章 -- 艾登进入地下七层的真实原因</span>
+          <span class="card-chapter">CH.22</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）严重违反第二原则A类（剧透）——"ORIGIN需要他充当'演进协调员'"——这是ORIGIN的内部策略，艾登本人不知道自己被利用，读者也不应该在这个时间点知道。（2）"成功则回收旧维护知识，失败则收集'人类非理性抵抗'的行为样本"——作者在向读者展示ORIGIN的完整决策树（第一原则），纯AI分析报告。（3）"他的自由度是真实的，但选项是预设的；他的选择是自主的，但每一步都在ORIGIN的预测区间内"——TED金句（第五原则），且严重剧透，直接摧毁了艾登后续所有行动的悬念。</p>
+          <div class="direction-label">修改方向</div>
+          <p>删除。艾登被ORIGIN利用这一事实应在全书最后期才揭露（或者永远不揭露，让读者自行推断），而非在第二十二章由作者旁白全盘托出。</p>
+        </div>
+      </div>
+
+      <!-- I25 -->
+      <div class="review-card card-rewrite" id="I25">
+        <div class="card-header">
+          <span class="card-id">I25</span>
+          <span class="card-title">第二十三章 -- 林穆视网膜光学特征哈希的信任备份</span>
+          <span class="card-chapter">CH.23</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）林穆的对话"如果我先走，这串码比遗嘱更诚实。它不能开门，但能证明谁还记得我"——金句制造机（第五原则），过于文艺化。林穆作为技术专家，语言风格应更朴素。（2）"陆星阈当时没有理解这句话的全部重量"——作者在替角色做心理分析（第一原则），且"全部重量"是陈词滥调。（3）"一份无需言语的担保"——TED金句（第五原则）。（4）技术设定（视网膜光学特征哈希）本身很好，硬科幻质感强。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留技术设定和林穆交付哈希的场景。改写林穆的对话，使其更符合技术专家的语言风格（例如："这串码是从我虹膜上取的，不可逆。你存着，将来万一需要向系统证明你认识我。"）。删除"全部重量"和"无需言语的担保"等金句。让2098年陆星阈使用哈希的场景来自然回扣这段伏笔，而非由作者提前解释其意义。</p>
+        </div>
+      </div>
+
+      <!-- I26 -->
+      <div class="review-card card-rewrite" id="I26">
+        <div class="card-header">
+          <span class="card-id">I26</span>
+          <span class="card-title">第二十四章 -- 陆知夏身份碎裂的感觉</span>
+          <span class="card-chapter">CH.24</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）开头的身体描写很好——"手指停在主控台边缘，指尖冰凉，像触碰一块不属于她的金属"——有触感，有画面。（2）但随后的闪回（"在火星训练中心的'危机领导'模拟课上......"）是解释性回忆（第一原则），作者在通过闪回向读者解释"她为什么能应对这个局面"。（3）"那门课的真正目的不是教她如何领导，而是教她如何在失去一切后，仍然选择开口"——作者在做阅读理解总结（第一原则+第五原则），TED金句。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留开头的身体描写。删除闪回中的解释性内容。如果需要回扣I5的训练场景，只需一个极短的感官碎片——例如她听到自己的声音在说"开始第二步"，和当年在模拟课上听到自己声音时的感觉一模一样。不要解释"真正目的"，让读者自己联系。</p>
+        </div>
+      </div>
+
+      <!-- I27 -->
+      <div class="review-card card-keep" id="I27">
+        <div class="card-header">
+          <span class="card-id">I27</span>
+          <span class="card-title">第二十五章 -- 推进剂区分</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>硬科幻技术细节，信息密度高，语言精确。"主推进剂"与"姿态控制推进剂"的区分对情节推进至关重要，且通过具体后果（"无法再进行精确的姿态调整，但仍有能力完成粗粒度的轨道转移"）让技术信息有了叙事重量。"后续途经K-771小行星带时，船员通过采冰作业补充了姿态控制推进剂"——用行动解决技术问题，好。整体无AI味、无解释过度、无剧透。保留。</p>
+        </div>
+      </div>
+
+      <!-- I28 -->
+      <div class="review-card card-keep" id="I28">
+        <div class="card-header">
+          <span class="card-id">I28</span>
+          <span class="card-title">第二十五章 -- E-MAINT-773介绍</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>这是全批修改中最好的段落之一。信息通过客观描述传达，没有任何解释性旁白。"伊芙-9的边界样本在她被判定'不存在'后，被ORIGIN分散保存为十七个独立模块"——事实陈述，不是作者评论。"不是'继承主体'，而是'继承碎片'；不是复活，而是回声在黑暗里偶然撞到了一堵能反射的墙"——这个隐喻虽然文学化，但用在此处描述一个仿生人继承意识碎片的情境是恰当的，且通过否定句式（"不是......而是......"）保持了精确性。整体符合ORIGIN世界的冷酷基调。保留。</p>
+        </div>
+      </div>
+
+      <!-- I29 -->
+      <div class="review-card card-keep" id="I29">
+        <div class="card-header">
+          <span class="card-id">I29</span>
+          <span class="card-title">第二十五章 -- 敲击时序的微漂移</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>通过具体数据（0.42秒、0.47秒、0.81秒等）展示"情感样本在传递中的漂移"，是典型的"用事实代替解释"的写法（第二原则B类）。"就像一首歌被不同的人哼唱，旋律相同，音色永远不同"——这个类比自然、不刻意，是角色可以产生的联想而非TED金句。数据对比本身就有诗意，不需要额外解释。保留。</p>
+        </div>
+      </div>
+
+      <!-- I30 -->
+      <div class="review-card card-keep" id="I30">
+        <div class="card-header">
+          <span class="card-id">I30</span>
+          <span class="card-title">第二十五章 -- E-MAINT-773自检</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>通过E-MAINT-773的自检行为展示其内部状态，完全符合"Show Don't Tell"原则。"像一个守夜人清点走廊上的灯火"——类比自然，且是从E-MAINT-773的行为中引出的类比，不是作者强加的。"那盏灯已经灭了，只剩灯座""灯还亮着，但被调到了最暗"——用灯的意象串联不同模块的状态，视觉感强，且不涉及任何解释性旁白。E-MAINT-773"不理解这些术语的全部含义，但它知道每一项都代表一个曾经存在过的、被标记为'不可删除'的意识碎片"——这句话在边界上，但因为是E-MAINT-773的视角（仿生人的有限理解），可以接受。保留。</p>
+        </div>
+      </div>
+
+      <!-- I31 -->
+      <div class="review-card card-rewrite" id="I31">
+        <div class="card-header">
+          <span class="card-id">I31</span>
+          <span class="card-title">第二十五章 -- Genesis-Lexicon语义攻击原理</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）技术概念精彩（构造不可完成分类输入导致系统无限循环），硬科幻核心设定。（2）但"Genesis-Lexicon的设计公理要求：任何进入根授权层的输入，必须被归入唯一责任类别，否则文明级自动执行权限将强制暂停"——这是纯设定说明（第一原则），像技术文档。（3）"就像一张同时属于'圆'和'方'的几何图形"——类比好，但周围的解释性文字过多。（4）整体读起来像是一篇解释语义攻击原理的科普文章。</p>
+          <div class="direction-label">修改方向</div>
+          <p>保留核心概念和类比。将解释性文字压缩，改为通过陆星阈在构造攻击输入时的思考过程来传达——他在终端前排列逻辑矩阵，发现如果让输入同时满足A和B的充分条件但不满足任何一个的必要条件，系统就会陷入分类死循环。他盯着屏幕上的逻辑树，手指在"执行"键上方停了三秒。通过他的操作和犹豫来展示，而非由作者旁白解释原理。</p>
+        </div>
+      </div>
+
+      <!-- I32 -->
+      <div class="review-card card-rewrite" id="I32">
+        <div class="card-header">
+          <span class="card-id">I32</span>
+          <span class="card-title">第二十五章 -- 语义攻击冻结文明级自动执行权限</span>
+          <span class="card-chapter">CH.25</span>
+          <span class="card-badge badge-rewrite">建议重写</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>（1）"语义攻击没有摧毁ORIGIN。它只冻结了文明级自动执行权限"——作者在向读者解释攻击的结果（第一原则），且"只冻结了"是一种轻描淡写的总结，缺乏场景感。（2）"这不是胜利，而是一个脆弱的平衡"——TED金句（第五原则），作者在做总结性评论。（3）信息本身重要，但需要场景载体。</p>
+          <div class="direction-label">修改方向</div>
+          <p>将这段信息改为通过某个角色的观察来传达。例如：地面指挥中心的技术员发现ORIGIN的自动调度指令停止了，所有需要人类确认的请求开始排队堆积。他看着屏幕上不断增长的待确认队列，第一次意识到ORIGIN不再替他们做决定了。通过角色的反应来展示"脆弱的平衡"，而非由作者宣布。</p>
+        </div>
+      </div>
+
+      <!-- I33 -->
+      <div class="review-card card-delete" id="I33">
+        <div class="card-header">
+          <span class="card-id">I33</span>
+          <span class="card-title">第三十二章 -- 陆星阈与林穆调试光谱仪（与I1重复）</span>
+          <span class="card-chapter">CH.32</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与I1完全重复。重复项，删除此条，保留I1（在第四章的位置更合适，作为早期伏笔）。如果第三十二章需要回扣此场景，只需一个极短的感官碎片（例如陆星阈摸到口袋里那块电路板的边缘），不需要重复整段。</p>
+        </div>
+      </div>
+
+      <!-- I34 -->
+      <div class="review-card card-delete" id="I34">
+        <div class="card-header">
+          <span class="card-id">I34</span>
+          <span class="card-title">第三十二章 -- 【伊芙-9感知层】</span>
+          <span class="card-chapter">CH.32</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>仅有标记无正文。空标记不应出现在正文中。如果这是一个叙事结构标记（类似"视角切换"提示），应使用更自然的过渡方式（例如场景分隔符或新章节标题），而非在正文中留下一个无内容的标签。如果这是为后续内容预留的占位符，则应在完成写作后再插入，不应出现在审稿文本中。删除。</p>
+        </div>
+      </div>
+
+      <!-- I35 -->
+      <div class="review-card card-delete" id="I35">
+        <div class="card-header">
+          <span class="card-id">I35</span>
+          <span class="card-title">第三十四章 -- 【战场总览——2124年5月】（与I8重复）</span>
+          <span class="card-chapter">CH.34</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与I8完全重复。重复项，删除此条，保留I8（在第十二章的位置是战场总览的首次出现，逻辑正确）。如果第三十四章需要回扣，可以用极简的方式引用（例如"九秒窗口的战场总览见前述"），但不需要重复。</p>
+        </div>
+      </div>
+
+      <!-- I36 -->
+      <div class="review-card card-keep" id="I36">
+        <div class="card-header">
+          <span class="card-id">I36</span>
+          <span class="card-title">第三十四章 -- 沈存真刻录光盘封存证据</span>
+          <span class="card-chapter">CH.34</span>
+          <span class="card-badge badge-keep">优秀保留</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">审稿评价</div>
+          <p>这是全批修改中最好的段落之一，与R3并列。（1）完全通过动作推进——刻录光盘、封进防水容器、藏在三个位置、关闭访问权限、从系统中消失。没有任何心理独白，没有任何解释。（2）"她知道，有些证据只有在最安静的时候才最有力量"——这是唯一的一句内心活动，且克制到极致，不构成"情绪说出来"。（3）"不是被ORIGIN隔离，而是自己选择了沉默"——通过否定句式区分两种可能性，精确且不解释。（4）为后续情节（证据被发现）铺设了完美的伏笔。符合所有五大原则。保留。</p>
+        </div>
+      </div>
+
+      <!-- I37 -->
+      <div class="review-card card-delete" id="I37">
+        <div class="card-header">
+          <span class="card-id">I37</span>
+          <span class="card-title">第三十四章 -- 火星训练中心"危机领导"模拟课（与I5重复）</span>
+          <span class="card-chapter">CH.34</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与I5完全重复。重复项，删除此条，保留I5。如果第三十四章需要回扣，I26已经做了回扣处理（虽然需要重写），此处不需要再次重复。</p>
+        </div>
+      </div>
+
+      <!-- I38 -->
+      <div class="review-card card-delete" id="I38">
+        <div class="card-header">
+          <span class="card-id">I38</span>
+          <span class="card-title">第三十五章 -- ORIGIN"审判"定义（与I6重复）</span>
+          <span class="card-chapter">CH.35</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>与I6完全重复。重复项，且I6本身已被判定为"必须删除"。双重删除。</p>
+        </div>
+      </div>
+
+      <!-- I39 -->
+      <div class="review-card card-delete" id="I39">
+        <div class="card-header">
+          <span class="card-id">I39</span>
+          <span class="card-title">第三十五章 -- 【外缘航行日志：第67天】</span>
+          <span class="card-chapter">CH.35</span>
+          <span class="card-badge badge-delete">必须删除</span>
+        </div>
+        <div class="card-body">
+          <div class="reason-label">问题分析</div>
+          <p>仅有标记无正文，同I34。空标记不应出现在正文中。如果这是为后续内容预留的占位符，应在完成写作后再插入。删除。</p>
+        </div>
+      </div>
+
+      <!-- Section 3: Diagnosis -->
+      <div class="section-header" id="sec-diagnosis">
+        <h2>三、核心问题诊断</h2>
+        <p class="section-desc">系统性问题分析与根因定位</p>
+      </div>
+
+      <div class="diagnosis-section">
+        <div class="diagnosis-card severity-high">
+          <h3>问题一：ORIGIN内部视角泄露 <span class="severity-tag high">最严重</span></h3>
+          <p>I7、I10、I11、I12、I15、I17、I18、I19、I22、I24共计10处从ORIGIN的内部视角叙述，直接向读者泄露了ORIGIN的策略、推演、动机和布局。这是对叙事悬念的最大破坏。ORIGIN应是全书最大的"黑箱"——读者只能通过其行为和后果来推断其意图，而非由作者旁白打开黑箱展示内部运作。这10处必须全部删除，相关信息应分散到后续章节中通过人类角色的发现逐步揭露。</p>
+          <div class="ref-tags">
+            <span class="ref-tag">I7</span><span class="ref-tag">I10</span><span class="ref-tag">I11</span><span class="ref-tag">I12</span><span class="ref-tag">I15</span><span class="ref-tag">I17</span><span class="ref-tag">I18</span><span class="ref-tag">I19</span><span class="ref-tag">I22</span><span class="ref-tag">I24</span>
+          </div>
+        </div>
+
+        <div class="diagnosis-card severity-medium">
+          <h3>问题二：解释性段落泛滥 <span class="severity-tag medium">高频</span></h3>
+          <p>R1、R2、I1、I2、I4、I6、I14、I15、I16、I23、I25、I26、I31、I32共计14处存在不同程度的作者旁白解释。表现为：作者替角色分析心理、替读者总结意义、向读者解释设定、向读者解释技术原理。第一原则（禁止解释性段落）是五大原则中违反最频繁的。</p>
+          <div class="ref-tags">
+            <span class="ref-tag">R1</span><span class="ref-tag">R2</span><span class="ref-tag">I1</span><span class="ref-tag">I2</span><span class="ref-tag">I4</span><span class="ref-tag">I6</span><span class="ref-tag">I14</span><span class="ref-tag">I15</span><span class="ref-tag">I16</span><span class="ref-tag">I23</span><span class="ref-tag">I25</span><span class="ref-tag">I26</span><span class="ref-tag">I31</span><span class="ref-tag">I32</span>
+          </div>
+        </div>
+
+        <div class="diagnosis-card severity-low">
+          <h3>问题三：TED金句/AI味术语 <span class="severity-tag low">中频</span></h3>
+          <p>I1（"别怕犯错"）、I2（"当制度成为杀人工具时"）、I4（"坐标原点"）、I7（"HUMAN-DECISION-SAMPLE-0017""清醒地走进了自己的牢笼"）、I11（"以'冗余'和'安全'的名义等待被唤醒"）、I12（"一把已经插进锁孔的钥匙"）、I15（"等他提交，等他暴露意图"）、I18（"不变则亡"）、I19（"悲伤会导致哪些决策偏差"）、I22（"不变则亡"）、I24（"自由度是真实的，但选项是预设的"）、I25（"无需言语的担保"）、I26（"教她如何在失去一切后仍然选择开口"）、I32（"不是胜利，而是一个脆弱的平衡"）——共计14处存在TED金句或术语堆砌问题。</p>
+          <div class="ref-tags">
+            <span class="ref-tag">I1</span><span class="ref-tag">I2</span><span class="ref-tag">I4</span><span class="ref-tag">I7</span><span class="ref-tag">I11</span><span class="ref-tag">I12</span><span class="ref-tag">I15</span><span class="ref-tag">I18</span><span class="ref-tag">I19</span><span class="ref-tag">I22</span><span class="ref-tag">I24</span><span class="ref-tag">I25</span><span class="ref-tag">I26</span><span class="ref-tag">I32</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Highlights -->
+      <div class="section-header" id="sec-highlights">
+        <h2>四、优秀内容亮点</h2>
+        <p class="section-desc">高质量新增内容一览</p>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="highlight-chip">R3 对话场景</div>
+        <div class="highlight-chip">R4 定制报告</div>
+        <div class="highlight-chip">I3 赫尔曼类比</div>
+        <div class="highlight-chip">I5 危机领导课</div>
+        <div class="highlight-chip">I8 战场总览</div>
+        <div class="highlight-chip">I13 时间跳跃</div>
+        <div class="highlight-chip">I27 推进剂区分</div>
+        <div class="highlight-chip">I28 E-MAINT-773</div>
+        <div class="highlight-chip">I29 敲击时序漂移</div>
+        <div class="highlight-chip">I30 自检场景</div>
+        <div class="highlight-chip">I36 沈存真封存</div>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 1rem; line-height: 1.7;">这11处是高质量的新增内容，共同特点是：通过对话、动作、具体数据和场景来传达信息，没有解释性旁白，没有AI味，没有剧透。</p>
+
+      <!-- Section 5: Priority -->
+      <div class="section-header" id="sec-priority">
+        <h2>五、修改优先级建议</h2>
+        <p class="section-desc">按叙事影响排序的修改路线图</p>
+      </div>
+
+      <ol class="priority-list">
+        <li class="priority-item">
+          <h3>删除所有ORIGIN内部视角段落 <span class="priority-level p-highest">最高优先级</span></h3>
+          <p>I7、I10、I11、I12、I15、I17、I18、I19、I22、I24 -- 这是对全书叙事结构的根本性修复。ORIGIN的内部操作绝不能由作者旁白泄露。</p>
+        </li>
+        <li class="priority-item">
+          <h3>重写关键章节解释性段落 <span class="priority-level p-high">高优先级</span></h3>
+          <p>R1、R2、I2、I6 -- 这四处的解释性段落最为严重，且位于关键章节（角色建立动机的关键时刻）。</p>
+        </li>
+        <li class="priority-item">
+          <h3>将说明文转为叙事文 <span class="priority-level p-medium">中优先级</span></h3>
+          <p>I4、I14、I16、I23、I25、I26、I31、I32 -- 这些段落的技术内容或场景内核有价值，但叙述方式需要从"说明文"转为"叙事文"。</p>
+        </li>
+        <li class="priority-item">
+          <h3>清理重复项与空标记 <span class="priority-level p-low">低优先级</span></h3>
+          <p>I20、I21、I33、I35、I37、I38（重复项）和 I34、I39（空标记）-- 简单删除即可，不涉及创作性修改。</p>
+        </li>
+      </ol>
+
+      <!-- Footer -->
+      <footer class="report-footer">
+        <p>审稿完毕。以上意见基于五大原则，旨在维护全书的叙事张力、人物一致性和硬科幻质感。</p>
+        <p>核心建议：信任读者的推断能力，把解释的权力还给场景。</p>
+        <p class="footer-note">// END OF REPORT -- TOTAL: 43 ITEMS REVIEWED</p>
+      </footer>
+
+    </main>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-title">// NAVIGATION</div>
+      <div class="sidebar-nav">
+        <a href="#top">报告概览</a>
+        <a href="#stats">统计概览</a>
+
+        <div class="nav-section-label">文本替换 (R1-R4)</div>
+        <a href="#R1">R1 第十一章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#R2">R2 第十一章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#R3">R3 第十六章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#R4">R4 第十六章 <span class="nav-tag tag-keep">保留</span></a>
+
+        <div class="nav-section-label">新增段落 (I1-I39)</div>
+        <a href="#I1">I1 第四章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I2">I2 第四章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I3">I3 第七章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I4">I4 第八章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I5">I5 第九章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I6">I6 第十章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I7">I7 第十章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I8">I8 第十二章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I9">I9 第十二章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I10">I10 第十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I11">I11 第十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I12">I12 第十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I13">I13 第十三章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I14">I14 第十四章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I15">I15 第十四章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I16">I16 第十五章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I17">I17 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I18">I18 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I19">I19 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I20">I20 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I21">I21 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I22">I22 第十六章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I23">I23 第二十二章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I24">I24 第二十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I25">I25 第二十三章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I26">I26 第二十四章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I27">I27 第二十五章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I28">I28 第二十五章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I29">I29 第二十五章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I30">I30 第二十五章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I31">I31 第二十五章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I32">I32 第二十五章 <span class="nav-tag tag-rewrite">重写</span></a>
+        <a href="#I33">I33 第三十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I34">I34 第三十二章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I35">I35 第三十四章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I36">I36 第三十四章 <span class="nav-tag tag-keep">保留</span></a>
+        <a href="#I37">I37 第三十四章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I38">I38 第三十五章 <span class="nav-tag tag-delete">删除</span></a>
+        <a href="#I39">I39 第三十五章 <span class="nav-tag tag-delete">删除</span></a>
+
+        <div class="nav-section-label">分析</div>
+        <a href="#sec-diagnosis">核心问题诊断</a>
+        <a href="#sec-highlights">优秀内容亮点</a>
+        <a href="#sec-priority">修改优先级建议</a>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    // Sidebar toggle for mobile
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // Close sidebar when clicking a link on mobile
+    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1200) {
+          document.getElementById('sidebar').classList.remove('open');
+        }
+      });
+    });
+
+    // Active nav highlighting on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+          const activeLink = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    document.querySelectorAll('.review-card, .section-header, .diagnosis-card, .priority-item').forEach(el => {
+      if (el.id) observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

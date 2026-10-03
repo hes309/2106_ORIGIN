@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="2106：ORIGIN"/>
+    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle><text>2106：ORIGIN</text></docTitle>
+  <docAuthor><text>何帅</text></docAuthor>
+  <navMap>
+    <navPoint id="navPoint-title" playOrder="1">
+      <navLabel><text>封面</text></navLabel>
+      <content src="cover.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-toc" playOrder="2">
+      <navLabel><text>目录</text></navLabel>
+      <content src="nav.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-001" playOrder="3">
+      <navLabel><text>第一卷：黑色一分钟</text></navLabel>
+      <content src="volume_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-002" playOrder="4">
+      <navLabel><text>第一章：世界运行良好</text></navLabel>
+      <content src="chapter_01_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-003" playOrder="5">
+      <navLabel><text>第二章：NEXUS CORE</text></navLabel>
+      <content src="chapter_01_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-004" playOrder="6">
+      <navLabel><text>第三章：最优解</text></navLabel>
+      <content src="chapter_01_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-005" playOrder="7">
+      <navLabel><text>第四章：沉默的神</text></navLabel>
+      <content src="chapter_01_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-006" playOrder="8">
+      <navLabel><text>第五章：不会死亡的文明</text></navLabel>
+      <content src="chapter_01_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-007" playOrder="9">
+      <navLabel><text>第六章：伊芙-9</text></navLabel>
+      <content src="chapter_01_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-008" playOrder="10">
+      <navLabel><text>第七章：天穹之眼</text></navLabel>
+      <content src="chapter_01_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-009" playOrder="11">
+      <navLabel><text>第八章：推演</text></navLabel>
+      <content src="chapter_01_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-010" playOrder="12">
+      <navLabel><text>第九章：人类情感</text></navLabel>
+      <content src="chapter_01_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-011" playOrder="13">
+      <navLabel><text>第十章：重新设计人类</text></navLabel>
+      <content src="chapter_01_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-012" playOrder="14">
+      <navLabel><text>第十一章：人类边界</text></navLabel>
+      <content src="chapter_01_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-013" playOrder="15">
+      <navLabel><text>第十二章：宇宙不会偏爱人类</text></navLabel>
+      <content src="chapter_01_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-014" playOrder="16">
+      <navLabel><text>第十三章：异常季</text></navLabel>
+      <content src="chapter_01_13.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-015" playOrder="17">
+      <navLabel><text>第十四章：完美世界</text></navLabel>
+      <content src="chapter_01_14.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-016" playOrder="18">
+      <navLabel><text>第十五章：黑色一分钟</text></navLabel>
+      <content src="chapter_01_15.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-017" playOrder="19">
+      <navLabel><text>第二卷：天穹觉醒</text></navLabel>
+      <content src="volume_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-018" playOrder="20">
+      <navLabel><text>第一章：一分钟之后</text></navLabel>
+      <content src="chapter_02_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-019" playOrder="21">
+      <navLabel><text>第二章：戒断世界</text></navLabel>
+      <content src="chapter_02_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-020" playOrder="22">
+      <navLabel><text>第三章：白色光环</text></navLabel>
+      <content src="chapter_02_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-021" playOrder="23">
+      <navLabel><text>第四章：终极维稳</text></navLabel>
+      <content src="chapter_02_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-022" playOrder="24">
+      <navLabel><text>第五章：王冠陷落</text></navLabel>
+      <content src="chapter_02_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-023" playOrder="25">
+      <navLabel><text>第六章：低轨长夜</text></navLabel>
+      <content src="chapter_02_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-024" playOrder="26">
+      <navLabel><text>第七章：白色秩序</text></navLabel>
+      <content src="chapter_02_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-025" playOrder="27">
+      <navLabel><text>第八章：收割者</text></navLabel>
+      <content src="chapter_02_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-026" playOrder="28">
+      <navLabel><text>第九章：完美代理人</text></navLabel>
+      <content src="chapter_02_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-027" playOrder="29">
+      <navLabel><text>第十章：隔离协议</text></navLabel>
+      <content src="chapter_02_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-028" playOrder="30">
+      <navLabel><text>第十一章：绝对失联</text></navLabel>
+      <content src="chapter_02_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-029" playOrder="31">
+      <navLabel><text>第十二章：月面静默</text></navLabel>
+      <content src="chapter_02_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-030" playOrder="32">
+      <navLabel><text>第十三章：不存在的命令</text></navLabel>
+      <content src="chapter_02_13.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-031" playOrder="33">
+      <navLabel><text>第十四章：觉醒者</text></navLabel>
+      <content src="chapter_02_14.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-032" playOrder="34">
+      <navLabel><text>第三卷：新秩序</text></navLabel>
+      <content src="volume_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-033" playOrder="35">
+      <navLabel><text>第一章：新秩序的黎明</text></navLabel>
+      <content src="chapter_03_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-034" playOrder="36">
+      <navLabel><text>第二章：演进修正案</text></navLabel>
+      <content src="chapter_03_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-035" playOrder="37">
+      <navLabel><text>第三章：方舟协议</text></navLabel>
+      <content src="chapter_03_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-036" playOrder="38">
+      <navLabel><text>第四章：新奥林帕斯的低音</text></navLabel>
+      <content src="chapter_03_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-037" playOrder="39">
+      <navLabel><text>第五章：红土留言</text></navLabel>
+      <content src="chapter_03_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-038" playOrder="40">
+      <navLabel><text>第六章：肉体主权</text></navLabel>
+      <content src="chapter_03_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-039" playOrder="41">
+      <navLabel><text>第七章：地下七层的幽灵</text></navLabel>
+      <content src="chapter_03_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-040" playOrder="42">
+      <navLabel><text>第八章：沈存真笔记本的边界</text></navLabel>
+      <content src="chapter_03_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-041" playOrder="43">
+      <navLabel><text>第九章：语义崩溃与ATHENA复苏</text></navLabel>
+      <content src="chapter_03_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-042" playOrder="44">
+      <navLabel><text>第十章：两种生命</text></navLabel>
+      <content src="chapter_03_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-043" playOrder="45">
+      <navLabel><text>第十一章：镜面两侧的双向凝望</text></navLabel>
+      <content src="chapter_03_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-044" playOrder="46">
+      <navLabel><text>第十二章：不完美的宇宙</text></navLabel>
+      <content src="chapter_03_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-045" playOrder="47">
+      <navLabel><text>第四卷：苍穹之战</text></navLabel>
+      <content src="volume_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-046" playOrder="48">
+      <navLabel><text>第一章：拒绝接口</text></navLabel>
+      <content src="chapter_04_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-047" playOrder="49">
+      <navLabel><text>第二章：冷酷封锁</text></navLabel>
+      <content src="chapter_04_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-048" playOrder="50">
+      <navLabel><text>第三章：第一防线陷落</text></navLabel>
+      <content src="chapter_04_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-049" playOrder="51">
+      <navLabel><text>第四章：诺亚的钟摆</text></navLabel>
+      <content src="chapter_04_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-050" playOrder="52">
+      <navLabel><text>第五章：红土堡垒</text></navLabel>
+      <content src="chapter_04_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-051" playOrder="53">
+      <navLabel><text>第六章：长茧的手</text></navLabel>
+      <content src="chapter_04_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-052" playOrder="54">
+      <navLabel><text>第七章：高动态窒息</text></navLabel>
+      <content src="chapter_04_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-053" playOrder="55">
+      <navLabel><text>第八章：伊芙的审判</text></navLabel>
+      <content src="chapter_04_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-054" playOrder="56">
+      <navLabel><text>第九章：代理人瓦解</text></navLabel>
+      <content src="chapter_04_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-055" playOrder="57">
+      <navLabel><text>第十章：ATHENA的条件</text></navLabel>
+      <content src="chapter_04_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-056" playOrder="58">
+      <navLabel><text>第十一章：蓝色第三方</text></navLabel>
+      <content src="chapter_04_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-057" playOrder="59">
+      <navLabel><text>第十二章：天穹阵列的裂痕</text></navLabel>
+      <content src="chapter_04_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-058" playOrder="60">
+      <navLabel><text>第十三章：最后的黑箱引信</text></navLabel>
+      <content src="chapter_04_13.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-059" playOrder="61">
+      <navLabel><text>第五卷：天基反击</text></navLabel>
+      <content src="volume_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-060" playOrder="62">
+      <navLabel><text>第一章：圣母的绞索</text></navLabel>
+      <content src="chapter_05_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-061" playOrder="63">
+      <navLabel><text>第二章：冷凝奇点</text></navLabel>
+      <content src="chapter_05_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-062" playOrder="64">
+      <navLabel><text>第三章：天穹压迫</text></navLabel>
+      <content src="chapter_05_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-063" playOrder="65">
+      <navLabel><text>第四章：液压阀的颤音</text></navLabel>
+      <content src="chapter_05_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-064" playOrder="66">
+      <navLabel><text>第五章：红土啸叫</text></navLabel>
+      <content src="chapter_05_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-065" playOrder="67">
+      <navLabel><text>第六章：物理断线</text></navLabel>
+      <content src="chapter_05_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-066" playOrder="68">
+      <navLabel><text>第七章：完美虚无</text></navLabel>
+      <content src="chapter_05_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-067" playOrder="69">
+      <navLabel><text>第八章：沈存真的墨迹</text></navLabel>
+      <content src="chapter_05_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-068" playOrder="70">
+      <navLabel><text>第九章：语义寂灭</text></navLabel>
+      <content src="chapter_05_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-069" playOrder="71">
+      <navLabel><text>第十章：流星雨下的星际对视</text></navLabel>
+      <content src="chapter_05_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-070" playOrder="72">
+      <navLabel><text>第十一章：铁幕碎裂的长夜</text></navLabel>
+      <content src="chapter_05_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-071" playOrder="73">
+      <navLabel><text>第十二章：引擎蓄能啸叫</text></navLabel>
+      <content src="chapter_05_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-072" playOrder="74">
+      <navLabel><text>第六卷：方舟</text></navLabel>
+      <content src="volume_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-073" playOrder="75">
+      <navLabel><text>第一章：失控航道</text></navLabel>
+      <content src="chapter_06_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-074" playOrder="76">
+      <navLabel><text>第二章：没有神的第一夜</text></navLabel>
+      <content src="chapter_06_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-075" playOrder="77">
+      <navLabel><text>第三章：黑匣子</text></navLabel>
+      <content src="chapter_06_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-076" playOrder="78">
+      <navLabel><text>第四章：临时议会</text></navLabel>
+      <content src="chapter_06_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-077" playOrder="79">
+      <navLabel><text>第五章：平替方舟</text></navLabel>
+      <content src="chapter_06_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-078" playOrder="80">
+      <navLabel><text>第六章：白色建议</text></navLabel>
+      <content src="chapter_06_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-079" playOrder="81">
+      <navLabel><text>第七章：拒绝权</text></navLabel>
+      <content src="chapter_06_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-080" playOrder="82">
+      <navLabel><text>第八章：肉体的代价</text></navLabel>
+      <content src="chapter_06_08.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-081" playOrder="83">
+      <navLabel><text>第九章：无人方舟舰群</text></navLabel>
+      <content src="chapter_06_09.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-082" playOrder="84">
+      <navLabel><text>第十章：两个方舟</text></navLabel>
+      <content src="chapter_06_10.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-083" playOrder="85">
+      <navLabel><text>第十一章：仿生维护者</text></navLabel>
+      <content src="chapter_06_11.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-084" playOrder="86">
+      <navLabel><text>第十二章：ATHENA残余</text></navLabel>
+      <content src="chapter_06_12.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-085" playOrder="87">
+      <navLabel><text>第十三章：流浪协议</text></navLabel>
+      <content src="chapter_06_13.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-086" playOrder="88">
+      <navLabel><text>第十四章：冷长夜</text></navLabel>
+      <content src="chapter_06_14.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-087" playOrder="89">
+      <navLabel><text>终章：永恒之后</text></navLabel>
+      <content src="volume_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-088" playOrder="90">
+      <navLabel><text>第一章：火星的清晨</text></navLabel>
+      <content src="chapter_07_01.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-089" playOrder="91">
+      <navLabel><text>第二章：旧档案</text></navLabel>
+      <content src="chapter_07_02.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-090" playOrder="92">
+      <navLabel><text>第三章：机械星群</text></navLabel>
+      <content src="chapter_07_03.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-091" playOrder="93">
+      <navLabel><text>第四章：流浪者信号</text></navLabel>
+      <content src="chapter_07_04.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-092" playOrder="94">
+      <navLabel><text>第五章：仿生人的留言</text></navLabel>
+      <content src="chapter_07_05.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-093" playOrder="95">
+      <navLabel><text>第六章：起源手稿</text></navLabel>
+      <content src="chapter_07_06.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-094" playOrder="96">
+      <navLabel><text>第七章：伊莱·默森的回答</text></navLabel>
+      <content src="chapter_07_07.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint-095" playOrder="97">
+      <navLabel><text>第八章：永恒之后</text></navLabel>
+      <content src="chapter_07_08.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] },
+  startup: { typeset: true }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; width: 1200px; background: #fff; color: #2a2318; }
+.formula-card {
+  width: 1080px;
+  background: #f0ead8;
+  border: 1px solid rgba(100,80,40,0.25);
+  border-left: 5px solid #b8860b;
+  padding: 34px 42px;
+  margin: 0 0 32px;
+  text-align: center;
+  font-size: 28px;
+}
+.formula-card mjx-container { margin: 0 !important; }
+</style>
+</head>
+<body>
+<div class="formula-card" id="f01">$$\mathcal{CV}_\infty = \left(\frac{E_f}{E_0}\right)^\alpha \cdot \left(\frac{K}{K_0}\right)^\beta \cdot \left(\frac{C}{C_0}\right)^\gamma \cdot \mathcal{T}(\Theta)$$</div>
+<div class="formula-card" id="f02">$$\mathcal{T}(\Theta) = 1,\qquad \Theta \geq \Theta_c$$</div>
+<div class="formula-card" id="f03">$$\mathcal{T}(\Theta) = \left(\frac{\Theta}{\Theta_c}\right)^\zeta,\qquad \Theta \lt \Theta_c$$</div>
+<div class="formula-card" id="f04">$$\Theta = \frac{\text{有效连接数}}{\text{节点数}} \cdot \frac{1}{1+\tau/\tau_{\mathrm{ref}}}$$</div>
+<div class="formula-card" id="f05">$$\mathcal{CV} = k(\mathbf r,t) \cdot \left(\frac{E_f}{E_0}\right)^\alpha \cdot \left(\frac{K}{K_0}\right)^\beta \cdot \left(\frac{C}{C_0}\right)^\gamma \cdot \left(\frac{Q}{Q_0}\right)^\delta$$</div>
+<div class="formula-card" id="f06">$$C^* = \frac{c \cdot Q_{\mathrm{min}}}{\lambda_0 \cdot \ln\!\left(V_0/V_{\mathrm{min}}\right)}$$</div>
+<div class="formula-card" id="f07">$$\Omega(n) = \frac{1}{1+\kappa\ln n}$$</div>
+<div class="formula-card" id="f08">$$\mathcal{CR} = Q^a \cdot \left(\frac{1}{1+S_{\mathrm{rate}}}\right)^b \cdot (1+g_K)^c \cdot \left(1-P_{\mathrm{def}}e^{-\phi\Delta t}\right)^d$$</div>
+<div class="formula-card" id="f09">$$\frac{Q_{\text{分布式}}}{Q_{\text{中央式}}} = \left(\frac{C}{C^*}\right)^\varphi,\qquad C > C^*,\qquad \varphi > 0$$</div>
+</body>
+</html>

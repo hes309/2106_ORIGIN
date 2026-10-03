@@ -1,0 +1,24 @@
+html, body { margin: 0; padding: 0; }
+body { font-family: "Songti SC", "Noto Serif CJK SC", serif; line-height: 1.78; color: #111; padding: 0 5%; }
+p { margin: 0 0 0.85em; text-indent: 2em; text-align: justify; }
+h1, h2 { font-family: "Heiti SC", "Noto Sans CJK SC", sans-serif; text-align: center; line-height: 1.35; }
+h1 { font-size: 1.65em; margin: 42% 0 0; }
+h2 { font-size: 1.35em; margin: 2.5em 0 1.8em; }
+.cover { margin: 0; padding: 0; text-align: center; }
+.cover img { display: block; width: 100%; height: auto; max-height: 100vh; object-fit: contain; }
+.titlepage { text-align: center; margin-top: 30%; }
+.titlepage h1 { margin: 0 0 1.2em; font-size: 1.8em; }
+.titlepage p, .epigraph p, .center { text-indent: 0; text-align: center; }
+.titlepage .subtitle { font-family: sans-serif; letter-spacing: 0.12em; margin-bottom: 5em; }
+.epigraph { margin: 30% 8% 0; }
+.formula { margin: 1.15em 0; text-align: center; }
+.formula img { display: block; width: 100%; max-width: 54em; height: auto; margin: 0 auto; }
+.illustration { margin: 1.3em 0; text-align: center; break-inside: avoid; page-break-inside: avoid; }
+.illustration img { display: block; width: auto; max-width: 100%; max-height: 92vh; margin: 0 auto; }
+.illustration.landscape img { width: 100%; height: auto; max-height: none; }
+.inline-formula { font-family: "Times New Roman", "STIX Two Math", serif; white-space: nowrap; }
+.inline-formula sub, .inline-formula sup { line-height: 0; }
+nav ol { list-style: none; padding-left: 0; }
+nav ol ol { padding-left: 1.4em; }
+nav li { margin: 0.55em 0; }
+nav a { color: inherit; text-decoration: none; }
